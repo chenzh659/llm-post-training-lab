@@ -4,10 +4,11 @@ seed: 42
 model:
   # path or HF id of the model/adapter under test
   name: outputs/dpo
-  base_model: Qwen/Qwen2.5-1.5B-Instruct
+  # must match SFT/DPO training base (8GB QLoRA run uses 0.5B)
+  base_model: Qwen/Qwen2.5-0.5B-Instruct
   trust_remote_code: true
   torch_dtype: bfloat16
-  max_new_tokens: 512
+  max_new_tokens: 256
   temperature: 0.0
   top_p: 1.0
   do_sample: false
@@ -16,9 +17,9 @@ data:
   sft_eval: data/processed/sft_eval.jsonl
   dpo_eval: data/processed/dpo_eval.jsonl
   safety_eval: data/processed/safety_eval.jsonl
-  sample_size: 100
-  # 0 or null => use full set (capped by file size)
-  max_samples: 200
+  sample_size: 20
+  # fixture suite has 20 items; raise for larger hold-out runs
+  max_samples: 20
 
 metrics:
   # generation quality

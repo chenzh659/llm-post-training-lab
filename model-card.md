@@ -21,7 +21,7 @@ pipeline_tag: text-generation
 
 Post-trained **中文电商智能客服** assistant built in this lab via supervised fine-tuning (SFT) with LoRA/QLoRA, followed by Direct Preference Optimization (DPO). This card follows Hugging Face model-card conventions and is intended for portfolio / reproducibility documentation.
 
-> **Status (2026-07-18):** Real QLoRA SFT + DPO completed on **RTX 4060 Laptop 8GB** (`Qwen2.5-0.5B-Instruct`). Metrics: `reports/sft_train_metrics.json` / `dpo_train_metrics.json` (`mock: false`). Offline rule-eval charts may still be demo mock until `05_eval_compare.py` is re-run.
+> **Status (2026-07-18):** Real QLoRA SFT + DPO on **RTX 4060 Laptop 8GB** (`Qwen2.5-0.5B-Instruct`). Train: `reports/sft_train_metrics.json` / `dpo_train_metrics.json`. Offline rule eval (`mock: false`, n=20): DPO composite **0.866** > SFT **0.860** > Base **0.737**; see `reports/comparison.json`.
 
 ---
 

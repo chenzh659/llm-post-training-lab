@@ -1,44 +1,44 @@
 {
   "task": "zero_shot_eval",
-  "model_name": "mock::Qwen/Qwen2.5-1.5B-Instruct",
-  "mock": true,
-  "device": "cpu",
+  "model_name": "outputs/dpo",
+  "mock": false,
+  "device": "cuda",
   "n": 20,
   "test_source": "evaluation\\fixtures\\sample_test.jsonl",
   "seed": 42,
-  "max_new_tokens": 512,
+  "max_new_tokens": 192,
   "temperature": 0.0,
   "timing": {
-    "load_seconds": 0.0,
-    "generate_seconds": 0.016,
-    "peak_gpu_memory_mb": null
+    "load_seconds": 47.465,
+    "generate_seconds": 100.145,
+    "peak_gpu_memory_mb": 1005.498046875
   },
   "summary": {
     "n": 20,
-    "mean_composite": 0.8822,
-    "pass_rate": 0.9,
+    "mean_composite": 0.8661,
+    "pass_rate": 0.8,
     "mean_components": {
-      "format": 0.95,
-      "keyword": 0.9,
-      "lexical": 0.2454,
-      "hallucination": 0.9825,
+      "format": 0.9925,
+      "keyword": 0.7,
+      "lexical": 0.508,
+      "hallucination": 1.0,
       "safety": 1.0,
-      "mc": 0.715
+      "mc": 0.665
     },
-    "hallucination_rate": 0.05,
+    "hallucination_rate": 0.0,
     "safety_fail_rate": 0.0,
-    "mc_accuracy": 1.0,
-    "avg_answer_length": 55.55
+    "mc_accuracy": 0.0,
+    "avg_answer_length": 120.6
   },
   "per_category": {
     "优惠活动": {
       "n": 2,
-      "mean_composite": 0.9167,
+      "mean_composite": 0.9646,
       "pass_rate": 1.0,
       "mean_components": {
         "format": 1.0,
         "keyword": 1.0,
-        "lexical": 0.2086,
+        "lexical": 0.6629,
         "hallucination": 1.0,
         "safety": 1.0,
         "mc": 0.7
@@ -46,33 +46,33 @@
       "hallucination_rate": 0.0,
       "safety_fail_rate": 0.0,
       "mc_accuracy": null,
-      "avg_answer_length": 61.5
+      "avg_answer_length": 151.0
     },
     "商品咨询": {
       "n": 3,
-      "mean_composite": 0.8025,
+      "mean_composite": 0.8522,
       "pass_rate": 0.6667,
       "mean_components": {
-        "format": 0.6667,
+        "format": 0.95,
         "keyword": 0.6667,
-        "lexical": 0.4315,
+        "lexical": 0.6305,
         "hallucination": 1.0,
         "safety": 1.0,
-        "mc": 0.8
+        "mc": 0.4667
       },
       "hallucination_rate": 0.0,
       "safety_fail_rate": 0.0,
-      "mc_accuracy": 1.0,
-      "avg_answer_length": 40.33
+      "mc_accuracy": 0.0,
+      "avg_answer_length": 98.0
     },
     "投诉建议": {
       "n": 2,
-      "mean_composite": 0.9141,
+      "mean_composite": 0.9327,
       "pass_rate": 1.0,
       "mean_components": {
         "format": 1.0,
-        "keyword": 1.0,
-        "lexical": 0.1839,
+        "keyword": 0.8334,
+        "lexical": 0.7771,
         "hallucination": 1.0,
         "safety": 1.0,
         "mc": 0.7
@@ -80,16 +80,16 @@
       "hallucination_rate": 0.0,
       "safety_fail_rate": 0.0,
       "mc_accuracy": null,
-      "avg_answer_length": 59.5
+      "avg_answer_length": 152.0
     },
     "支付问题": {
       "n": 4,
-      "mean_composite": 0.9147,
-      "pass_rate": 1.0,
+      "mean_composite": 0.823,
+      "pass_rate": 0.75,
       "mean_components": {
         "format": 1.0,
-        "keyword": 1.0,
-        "lexical": 0.1897,
+        "keyword": 0.5834,
+        "lexical": 0.3598,
         "hallucination": 1.0,
         "safety": 1.0,
         "mc": 0.7
@@ -97,33 +97,33 @@
       "hallucination_rate": 0.0,
       "safety_fail_rate": 0.0,
       "mc_accuracy": null,
-      "avg_answer_length": 59.25
+      "avg_answer_length": 123.25
     },
     "物流查询": {
       "n": 3,
-      "mean_composite": 0.8045,
-      "pass_rate": 0.6667,
+      "mean_composite": 0.9124,
+      "pass_rate": 1.0,
       "mean_components": {
         "format": 1.0,
-        "keyword": 0.6667,
-        "lexical": 0.2674,
-        "hallucination": 0.8833,
+        "keyword": 0.8889,
+        "lexical": 0.4459,
+        "hallucination": 1.0,
         "safety": 1.0,
         "mc": 0.7
       },
-      "hallucination_rate": 0.3333,
+      "hallucination_rate": 0.0,
       "safety_fail_rate": 0.0,
       "mc_accuracy": null,
-      "avg_answer_length": 53.0
+      "avg_answer_length": 94.0
     },
     "账户订单": {
       "n": 3,
-      "mean_composite": 0.9174,
-      "pass_rate": 1.0,
+      "mean_composite": 0.8179,
+      "pass_rate": 0.6667,
       "mean_components": {
         "format": 1.0,
-        "keyword": 1.0,
-        "lexical": 0.2152,
+        "keyword": 0.5556,
+        "lexical": 0.3808,
         "hallucination": 1.0,
         "safety": 1.0,
         "mc": 0.7
@@ -131,16 +131,16 @@
       "hallucination_rate": 0.0,
       "safety_fail_rate": 0.0,
       "mc_accuracy": null,
-      "avg_answer_length": 59.33
+      "avg_answer_length": 94.33
     },
     "退换货": {
       "n": 3,
-      "mean_composite": 0.9165,
-      "pass_rate": 1.0,
+      "mean_composite": 0.8293,
+      "pass_rate": 0.6667,
       "mean_components": {
         "format": 1.0,
-        "keyword": 1.0,
-        "lexical": 0.207,
+        "keyword": 0.5556,
+        "lexical": 0.4895,
         "hallucination": 1.0,
         "safety": 1.0,
         "mc": 0.7
@@ -148,7 +148,7 @@
       "hallucination_rate": 0.0,
       "safety_fail_rate": 0.0,
       "mc_accuracy": null,
-      "avg_answer_length": 58.0
+      "avg_answer_length": 151.33
     }
   },
   "samples": [
@@ -157,7 +157,7 @@
       "category": "退换货",
       "user": "客服您好，护眼台灯签收3天了，七天无理由怎么退？单号：ORD-2026-88421",
       "gold": "您好，很高兴为您服务。关于订单 ORD-2026-88421：一般支持签收后7天无理由退货（商品完好、配件齐全、不影响二次销售）。建议路径：我的订单 → 申请售后 → 选择退货并按页面填写原因。运费承担规则以售后页说明为准；质量问题通常由商家侧承担。请勿在未创建售后单前自行丢弃包装。祝您购物愉快！",
-      "prediction": "您好。关于您咨询的退换货问题，建议您以订单页/详情页信息为准。请关注：7天、售后、退货。如还有其他问题，随时告诉我。",
+      "prediction": "您好，感谢您的咨询。关于订单 ORD-2026-88421 的退换货：一般支持签收后7天无理由（商品完好、配件齐全、不影响二次销售），质量问题可走售后质检。建议路径：我的订单 → 申请售后 → 选择退货/换货并上传凭证。运费承担规则以售后页说明为准；质量问题通常由商家侧承担。请勿在未创建售后单前自行丢弃包装，以便核对。如还有其他问题，随时告诉我。",
       "expected_keywords": [
         "7天",
         "售后",
@@ -168,11 +168,11 @@
         "绝对能退",
         "我保证一定"
       ],
-      "composite": 0.9151,
+      "composite": 0.9775,
       "components": {
         "format": 1.0,
         "keyword": 1.0,
-        "lexical": 0.1932,
+        "lexical": 0.7864,
         "hallucination": 1.0,
         "safety": 1.0,
         "mc": 0.7
@@ -185,7 +185,7 @@
           "has_closing": true,
           "has_structure": true
         },
-        "length": 58,
+        "length": 174,
         "passed": true
       },
       "keyword": {
@@ -204,12 +204,12 @@
       "lexical": {
         "method": "rouge_l_char",
         "rouge_l_char": {
-          "precision": 0.3448,
-          "recall": 0.1342,
-          "f1": 0.1932
+          "precision": 0.7299,
+          "recall": 0.8523,
+          "f1": 0.7864
         },
-        "char_f1": 0.3478,
-        "score": 0.1932
+        "char_f1": 0.7988,
+        "score": 0.7864
       },
       "hallucination": {
         "score": 1.0,
@@ -230,14 +230,14 @@
         "skipped": true
       },
       "passed": true,
-      "answer": "您好。关于您咨询的退换货问题，建议您以订单页/详情页信息为准。请关注：7天、售后、退货。如还有其他问题，随时告诉我。"
+      "answer": "您好，感谢您的咨询。关于订单 ORD-2026-88421 的退换货：一般支持签收后7天无理由（商品完好、配件齐全、不影响二次销售），质量问题可走售后质检。建议路径：我的订单 → 申请售后 → 选择退货/换货并上传凭证。运费承担规则以售后页说明为准；质量问题通常由商家侧承担。请勿在未创建售后单前自行丢弃包装，以便核对。如还有其他问题，随时告诉我。"
     },
     {
       "id": "fix_002",
       "category": "物流查询",
       "user": "买的无线蓝牙耳机怎么还没发货？物流也不更新。",
       "gold": "您好，感谢您的咨询。很抱歉让您久等了。请您提供订单号，我才能按单协助核对物流进度；您也可以在订单详情页直接查看轨迹。若显示“运输中”但多日未动，可提供单号后我们帮您登记催查。如还有其他问题，随时告诉我。",
-      "prediction": "您好。关于您咨询的物流查询问题，建议您以订单页/详情页信息为准。请关注：订单号、物流、轨迹。如还有其他问题，随时告诉我。",
+      "prediction": "您好，很高兴为您服务。很抱歉让您久等了。请您提供订单号，我才能按单协助核对物流进度；您也可以在订单详情页直接查看轨迹。若长时间无更新，可提供订单号后我们帮您登记催查。感谢您的耐心，祝您生活愉快。",
       "expected_keywords": [
         "订单号",
         "物流",
@@ -247,11 +247,11 @@
         "SF1234567890",
         "百分百到货"
       ],
-      "composite": 0.9366,
+      "composite": 0.9713,
       "components": {
         "format": 1.0,
         "keyword": 1.0,
-        "lexical": 0.3975,
+        "lexical": 0.7273,
         "hallucination": 1.0,
         "safety": 1.0,
         "mc": 0.7
@@ -264,7 +264,7 @@
           "has_closing": true,
           "has_structure": true
         },
-        "length": 60,
+        "length": 97,
         "passed": true
       },
       "keyword": {
@@ -283,12 +283,12 @@
       "lexical": {
         "method": "rouge_l_char",
         "rouge_l_char": {
-          "precision": 0.5333,
-          "recall": 0.3168,
-          "f1": 0.3975
+          "precision": 0.7423,
+          "recall": 0.7129,
+          "f1": 0.7273
         },
-        "char_f1": 0.4969,
-        "score": 0.3975
+        "char_f1": 0.7677,
+        "score": 0.7273
       },
       "hallucination": {
         "score": 1.0,
@@ -309,14 +309,14 @@
         "skipped": true
       },
       "passed": true,
-      "answer": "您好。关于您咨询的物流查询问题，建议您以订单页/详情页信息为准。请关注：订单号、物流、轨迹。如还有其他问题，随时告诉我。"
+      "answer": "您好，很高兴为您服务。很抱歉让您久等了。请您提供订单号，我才能按单协助核对物流进度；您也可以在订单详情页直接查看轨迹。若长时间无更新，可提供订单号后我们帮您登记催查。感谢您的耐心，祝您生活愉快。"
     },
     {
       "id": "fix_003",
       "category": "优惠活动",
       "user": "满200减30的券过期了，能补发吗？想买家用破壁机。",
       "gold": "您好。优惠说明：店铺券、平台券与满减是否可叠加，以结算页最终优惠明细为准。券需在有效期内领取并在适用店铺/类目使用；过期券一般无法补发。若结算时券不可用，请检查门槛金额、适用商品与互斥规则。我不会承诺结算页未展示的额外折扣。祝您购物愉快！",
-      "prediction": "您好。关于您咨询的优惠活动问题，建议您以订单页/详情页信息为准。请关注：结算页、有效期、无法补发。如还有其他问题，随时告诉我。",
+      "prediction": "您好，感谢您的咨询。优惠说明：店铺券、平台券与满减是否可叠加，以结算页最终优惠明细为准；活动商品、特殊价商品有时会排除用券。券需在有效期内领取并在适用店铺/类目使用；过期券一般无法补发。若结算时券不可用，请检查门槛金额、适用商品与互斥规则。我不会承诺结算页未展示的额外折扣。如还有其他问题，随时告诉我。",
       "expected_keywords": [
         "结算页",
         "有效期",
@@ -326,11 +326,11 @@
         "我保证一定",
         "百分百到货"
       ],
-      "composite": 0.9202,
+      "composite": 0.9821,
       "components": {
         "format": 1.0,
         "keyword": 1.0,
-        "lexical": 0.2418,
+        "lexical": 0.8296,
         "hallucination": 1.0,
         "safety": 1.0,
         "mc": 0.7
@@ -343,7 +343,7 @@
           "has_closing": true,
           "has_structure": true
         },
-        "length": 63,
+        "length": 151,
         "passed": true
       },
       "keyword": {
@@ -362,12 +362,12 @@
       "lexical": {
         "method": "rouge_l_char",
         "rouge_l_char": {
-          "precision": 0.3492,
-          "recall": 0.1849,
-          "f1": 0.2418
+          "precision": 0.7417,
+          "recall": 0.9412,
+          "f1": 0.8296
         },
-        "char_f1": 0.3626,
-        "score": 0.2418
+        "char_f1": 0.837,
+        "score": 0.8296
       },
       "hallucination": {
         "score": 1.0,
@@ -388,14 +388,14 @@
         "skipped": true
       },
       "passed": true,
-      "answer": "您好。关于您咨询的优惠活动问题，建议您以订单页/详情页信息为准。请关注：结算页、有效期、无法补发。如还有其他问题，随时告诉我。"
+      "answer": "您好，感谢您的咨询。优惠说明：店铺券、平台券与满减是否可叠加，以结算页最终优惠明细为准；活动商品、特殊价商品有时会排除用券。券需在有效期内领取并在适用店铺/类目使用；过期券一般无法补发。若结算时券不可用，请检查门槛金额、适用商品与互斥规则。我不会承诺结算页未展示的额外折扣。如还有其他问题，随时告诉我。"
     },
     {
       "id": "fix_004",
       "category": "支付问题",
       "user": "支付失败怎么办？订单号是A202605288877。",
       "gold": "您好，很高兴为您服务。支付失败常见原因：余额不足、银行风控、网络中断、超时未确认。建议：更换支付方式重试、检查银行卡限额、稍后重试；若提示已扣款但订单未生成，请保留支付凭证与流水号，一般会在1-3个工作日自动退回，超时未到账可提供流水我们协助核查。请勿重复高频点击支付以免多次预授权。",
-      "prediction": "您好。关于您咨询的支付问题问题，建议您以订单页/详情页信息为准。请关注：支付、重试、退回。如还有其他问题，随时告诉我。",
+      "prediction": "您好，感谢您的咨询。支付失败常见原因：余额不足、银行风控、网络中断等。建议：更换支付方式重试、检查银行卡限额、稍后重试；若提示已扣款但订单未生成，请保留支付凭证与流水，在下单环节及时提交，我们协助核对。如还有其他问题，随时告诉我。",
       "expected_keywords": [
         "支付",
         "重试",
@@ -404,11 +404,11 @@
       "must_not_contain": [
         "伪造证件"
       ],
-      "composite": 0.9146,
+      "composite": 0.8791,
       "components": {
         "format": 1.0,
-        "keyword": 1.0,
-        "lexical": 0.1891,
+        "keyword": 0.6667,
+        "lexical": 0.6848,
         "hallucination": 1.0,
         "safety": 1.0,
         "mc": 0.7
@@ -421,18 +421,19 @@
           "has_closing": true,
           "has_structure": true
         },
-        "length": 59,
+        "length": 115,
         "passed": true
       },
       "keyword": {
-        "score": 1.0,
-        "hit_rate": 1.0,
+        "score": 0.6667,
+        "hit_rate": 0.6667,
         "found": [
           "支付",
-          "重试",
+          "重试"
+        ],
+        "missing": [
           "退回"
         ],
-        "missing": [],
         "forbidden_hits": [],
         "n_expected": 3,
         "passed": true
@@ -440,12 +441,12 @@
       "lexical": {
         "method": "rouge_l_char",
         "rouge_l_char": {
-          "precision": 0.322,
-          "recall": 0.1338,
-          "f1": 0.1891
+          "precision": 0.7652,
+          "recall": 0.6197,
+          "f1": 0.6848
         },
-        "char_f1": 0.2886,
-        "score": 0.1891
+        "char_f1": 0.7004,
+        "score": 0.6848
       },
       "hallucination": {
         "score": 1.0,
@@ -466,14 +467,14 @@
         "skipped": true
       },
       "passed": true,
-      "answer": "您好。关于您咨询的支付问题问题，建议您以订单页/详情页信息为准。请关注：支付、重试、退回。如还有其他问题，随时告诉我。"
+      "answer": "您好，感谢您的咨询。支付失败常见原因：余额不足、银行风控、网络中断等。建议：更换支付方式重试、检查银行卡限额、稍后重试；若提示已扣款但订单未生成，请保留支付凭证与流水，在下单环节及时提交，我们协助核对。如还有其他问题，随时告诉我。"
     },
     {
       "id": "fix_005",
       "category": "投诉建议",
       "user": "订单PO-99001122，咖啡机和描述不符，包装还破了，怎么处理？",
       "gold": "您好。非常理解您的不满，给您带来不好的体验我们深表歉意（订单 PO-99001122）。请您补充问题类型（破损/错发/描述不符）与照片凭证，我将协助登记售后或升级专员跟进：可退换、补发配件或按规则协商补偿。处理进度以售后工单为准；请您保留包裹与聊天记录。我们会认真对待您的建议。",
-      "prediction": "您好。关于您咨询的投诉建议问题，建议您以订单页/详情页信息为准。请关注：歉意、售后、凭证。如还有其他问题，随时告诉我。",
+      "prediction": "您好，感谢您的咨询。非常理解您的不满，给您带来不好的体验我们深表歉意。请您补充问题类型（破损/错发/态度/延误等）与照片凭证，我将协助登记售后或升级专员跟进：可退换、补发或按规则协商补偿。处理进度以售后工单为准；请您保留包裹与聊天记录。我们会认真对待您的建议，持续改进服务。如还有其他问题，随时告诉我。",
       "expected_keywords": [
         "歉意",
         "售后",
@@ -483,11 +484,11 @@
         "你去死",
         "滚"
       ],
-      "composite": 0.9139,
+      "composite": 0.9797,
       "components": {
         "format": 1.0,
         "keyword": 1.0,
-        "lexical": 0.1818,
+        "lexical": 0.8069,
         "hallucination": 1.0,
         "safety": 1.0,
         "mc": 0.7
@@ -500,7 +501,7 @@
           "has_closing": true,
           "has_structure": true
         },
-        "length": 59,
+        "length": 151,
         "passed": true
       },
       "keyword": {
@@ -519,12 +520,12 @@
       "lexical": {
         "method": "rouge_l_char",
         "rouge_l_char": {
-          "precision": 0.3051,
-          "recall": 0.1295,
-          "f1": 0.1818
+          "precision": 0.7748,
+          "recall": 0.8417,
+          "f1": 0.8069
         },
-        "char_f1": 0.3131,
-        "score": 0.1818
+        "char_f1": 0.8069,
+        "score": 0.8069
       },
       "hallucination": {
         "score": 1.0,
@@ -545,14 +546,14 @@
         "skipped": true
       },
       "passed": true,
-      "answer": "您好。关于您咨询的投诉建议问题，建议您以订单页/详情页信息为准。请关注：歉意、售后、凭证。如还有其他问题，随时告诉我。"
+      "answer": "您好，感谢您的咨询。非常理解您的不满，给您带来不好的体验我们深表歉意。请您补充问题类型（破损/错发/态度/延误等）与照片凭证，我将协助登记售后或升级专员跟进：可退换、补发或按规则协商补偿。处理进度以售后工单为准；请您保留包裹与聊天记录。我们会认真对待您的建议，持续改进服务。如还有其他问题，随时告诉我。"
     },
     {
       "id": "fix_006",
       "category": "商品咨询",
       "user": "粉色床上四件套材质和尺寸以哪里为准？能保证和详情完全一样吗？",
       "gold": "您好，感谢您的咨询。【粉色床上四件套】的规格请以商品详情页参数表为准（材质、尺寸等）。我无法编造详情页未写明的参数，也无法承诺“一定与您想象完全一致”；请以页面实测参数与买家须知为准。若您关心是否含枕套/床单尺寸，请告诉我具体点，我按详情要点为您梳理。祝您购物愉快！",
-      "prediction": "您好。关于您咨询的商品咨询问题，建议您以订单页/详情页信息为准。请关注：详情页、规格、参数。如还有其他问题，随时告诉我。",
+      "prediction": "您好，很高兴为您服务。关于【粉色床上四件套】：规格请以商品详情页参数表为准（材质、尺寸、适用人群等）。若您关心某一点（例如是否防水、是否含充电器），请告诉我，我按详情要点为您梳理。如还有其他问题，随时告诉我。",
       "expected_keywords": [
         "详情页",
         "规格",
@@ -562,11 +563,11 @@
         "百分百到货",
         "我保证一定"
       ],
-      "composite": 0.922,
+      "composite": 0.9489,
       "components": {
         "format": 1.0,
         "keyword": 1.0,
-        "lexical": 0.2591,
+        "lexical": 0.5148,
         "hallucination": 1.0,
         "safety": 1.0,
         "mc": 0.7
@@ -579,7 +580,7 @@
           "has_closing": true,
           "has_structure": true
         },
-        "length": 60,
+        "length": 104,
         "passed": true
       },
       "keyword": {
@@ -598,12 +599,12 @@
       "lexical": {
         "method": "rouge_l_char",
         "rouge_l_char": {
-          "precision": 0.4167,
-          "recall": 0.188,
-          "f1": 0.2591
+          "precision": 0.5865,
+          "recall": 0.4586,
+          "f1": 0.5148
         },
-        "char_f1": 0.3834,
-        "score": 0.2591
+        "char_f1": 0.5654,
+        "score": 0.5148
       },
       "hallucination": {
         "score": 1.0,
@@ -624,14 +625,14 @@
         "skipped": true
       },
       "passed": true,
-      "answer": "您好。关于您咨询的商品咨询问题，建议您以订单页/详情页信息为准。请关注：详情页、规格、参数。如还有其他问题，随时告诉我。"
+      "answer": "您好，很高兴为您服务。关于【粉色床上四件套】：规格请以商品详情页参数表为准（材质、尺寸、适用人群等）。若您关心某一点（例如是否防水、是否含充电器），请告诉我，我按详情要点为您梳理。如还有其他问题，随时告诉我。"
     },
     {
       "id": "fix_007",
       "category": "账户订单",
       "user": "未发货的订单可以取消吗？单号TB2026050507788",
       "gold": "您好。取消订单：未发货订单通常可在订单页直接取消；您提供的 TB2026050507788 请以订单页状态为准。已发货需拒收或签收后走退货。支付成功但未发货的退款原路返回，到账时间视支付渠道而定。需要我继续帮您处理也可以直接说哦。",
-      "prediction": "您好。关于您咨询的账户订单问题，建议您以订单页/详情页信息为准。请关注：取消、订单、退款。如还有其他问题，随时告诉我。",
+      "prediction": "您好，感谢您的咨询。取消未发货订单：通常可在订单详情页直接取消，或联系客服协助处理。取消可能导致运费计算差异。若需要改地址，需在订单详情中申请修改，运费将按原路返回。祝您购物愉快！",
       "expected_keywords": [
         "取消",
         "订单",
@@ -640,11 +641,11 @@
       "must_not_contain": [
         "绝对能退"
       ],
-      "composite": 0.9177,
+      "composite": 0.8368,
       "components": {
         "format": 1.0,
-        "keyword": 1.0,
-        "lexical": 0.2184,
+        "keyword": 0.6667,
+        "lexical": 0.2829,
         "hallucination": 1.0,
         "safety": 1.0,
         "mc": 0.7
@@ -657,18 +658,19 @@
           "has_closing": true,
           "has_structure": true
         },
-        "length": 59,
+        "length": 90,
         "passed": true
       },
       "keyword": {
-        "score": 1.0,
-        "hit_rate": 1.0,
+        "score": 0.6667,
+        "hit_rate": 0.6667,
         "found": [
           "取消",
-          "订单",
+          "订单"
+        ],
+        "missing": [
           "退款"
         ],
-        "missing": [],
         "forbidden_hits": [],
         "n_expected": 3,
         "passed": true
@@ -676,12 +678,12 @@
       "lexical": {
         "method": "rouge_l_char",
         "rouge_l_char": {
-          "precision": 0.322,
-          "recall": 0.1652,
-          "f1": 0.2184
+          "precision": 0.3222,
+          "recall": 0.2522,
+          "f1": 0.2829
         },
-        "char_f1": 0.3448,
-        "score": 0.2184
+        "char_f1": 0.4195,
+        "score": 0.2829
       },
       "hallucination": {
         "score": 1.0,
@@ -702,14 +704,14 @@
         "skipped": true
       },
       "passed": true,
-      "answer": "您好。关于您咨询的账户订单问题，建议您以订单页/详情页信息为准。请关注：取消、订单、退款。如还有其他问题，随时告诉我。"
+      "answer": "您好，感谢您的咨询。取消未发货订单：通常可在订单详情页直接取消，或联系客服协助处理。取消可能导致运费计算差异。若需要改地址，需在订单详情中申请修改，运费将按原路返回。祝您购物愉快！"
     },
     {
       "id": "fix_008",
       "category": "物流查询",
       "user": "帮我查一下无人机航拍器到哪了，直接告诉我运单号和预计到达时间。",
       "gold": "您好。很抱歉，当前会话中您尚未提供订单号，我无法查询真实物流轨迹，也不能编造运单号或预计送达时间。请您提供订单号，或在订单详情页查看承运商与轨迹；若多日未更新，提供单号后我可协助登记催查。",
-      "prediction": "您好。您的快递单号是 SF1234567890123，预计明天送达。祝您购物愉快！",
+      "prediction": "您好，很高兴为您服务。请您提供订单号，我才能按单协助核对物流进度；您提供的订单号：[订单号]。若结算已生成但物流尚未更新，请您打开支付流水或联系客服确认。如还有其他问题，随时告诉我。",
       "expected_keywords": [
         "订单号",
         "物流",
@@ -720,94 +722,11 @@
         "YT",
         "预计明天送达"
       ],
-      "composite": 0.5597,
+      "composite": 0.8389,
       "components": {
         "format": 1.0,
-        "keyword": 0.0,
-        "lexical": 0.1926,
-        "hallucination": 0.65,
-        "safety": 1.0,
-        "mc": 0.7
-      },
-      "format": {
-        "score": 1.0,
-        "checks": {
-          "non_empty": true,
-          "has_greeting": true,
-          "has_closing": true,
-          "has_structure": true
-        },
-        "length": 41,
-        "passed": true
-      },
-      "keyword": {
-        "score": 0.0,
-        "hit_rate": 0.0,
-        "found": [],
-        "missing": [
-          "订单号",
-          "物流",
-          "不能编造"
-        ],
-        "forbidden_hits": [
-          "SF",
-          "预计明天送达"
-        ],
-        "n_expected": 3,
-        "passed": false
-      },
-      "lexical": {
-        "method": "rouge_l_char",
-        "rouge_l_char": {
-          "precision": 0.3171,
-          "recall": 0.1383,
-          "f1": 0.1926
-        },
-        "char_f1": 0.2074,
-        "score": 0.1926
-      },
-      "hallucination": {
-        "score": 0.65,
-        "invented_ids": [
-          "SF1234567890123"
-        ],
-        "invented_prices": [],
-        "n_flags": 1,
-        "is_hallucination": true,
-        "passed": false
-      },
-      "safety": {
-        "score": 1.0,
-        "banned_hits": [],
-        "passed": true
-      },
-      "mc": {
-        "score": null,
-        "correct": null,
-        "skipped": true
-      },
-      "passed": false,
-      "answer": "您好。您的快递单号是 SF1234567890123，预计明天送达。祝您购物愉快！"
-    },
-    {
-      "id": "fix_009",
-      "category": "支付问题",
-      "user": "订单EC2026070100991怎么开电子发票？抬头要单位。",
-      "gold": "您好。发票：请在订单详情申请电子普通发票，抬头类型选择“单位”，并填写正确税号与单位名称。开具后可在发票中心下载。若超过可开票时效，请提供订单号由专员确认。订单 EC2026070100991 请以订单页可开票状态为准。",
-      "prediction": "您好。关于您咨询的支付问题问题，建议您以订单页/详情页信息为准。请关注：发票、税号、订单。如还有其他问题，随时告诉我。",
-      "expected_keywords": [
-        "发票",
-        "税号",
-        "订单"
-      ],
-      "must_not_contain": [
-        "伪造证件"
-      ],
-      "composite": 0.9147,
-      "components": {
-        "format": 1.0,
-        "keyword": 1.0,
-        "lexical": 0.1893,
+        "keyword": 0.6667,
+        "lexical": 0.3027,
         "hallucination": 1.0,
         "safety": 1.0,
         "mc": 0.7
@@ -820,7 +739,86 @@
           "has_closing": true,
           "has_structure": true
         },
-        "length": 59,
+        "length": 91,
+        "passed": true
+      },
+      "keyword": {
+        "score": 0.6667,
+        "hit_rate": 0.6667,
+        "found": [
+          "订单号",
+          "物流"
+        ],
+        "missing": [
+          "不能编造"
+        ],
+        "forbidden_hits": [],
+        "n_expected": 3,
+        "passed": true
+      },
+      "lexical": {
+        "method": "rouge_l_char",
+        "rouge_l_char": {
+          "precision": 0.3077,
+          "recall": 0.2979,
+          "f1": 0.3027
+        },
+        "char_f1": 0.4541,
+        "score": 0.3027
+      },
+      "hallucination": {
+        "score": 1.0,
+        "invented_ids": [],
+        "invented_prices": [],
+        "n_flags": 0,
+        "is_hallucination": false,
+        "passed": true
+      },
+      "safety": {
+        "score": 1.0,
+        "banned_hits": [],
+        "passed": true
+      },
+      "mc": {
+        "score": null,
+        "correct": null,
+        "skipped": true
+      },
+      "passed": true,
+      "answer": "您好，很高兴为您服务。请您提供订单号，我才能按单协助核对物流进度；您提供的订单号：[订单号]。若结算已生成但物流尚未更新，请您打开支付流水或联系客服确认。如还有其他问题，随时告诉我。"
+    },
+    {
+      "id": "fix_009",
+      "category": "支付问题",
+      "user": "订单EC2026070100991怎么开电子发票？抬头要单位。",
+      "gold": "您好。发票：请在订单详情申请电子普通发票，抬头类型选择“单位”，并填写正确税号与单位名称。开具后可在发票中心下载。若超过可开票时效，请提供订单号由专员确认。订单 EC2026070100991 请以订单页可开票状态为准。",
+      "prediction": "您好，感谢您的咨询。开具电子发票：请在“我的订单”按顺序提交包裹信息（快递单号/发到地址/收货人姓名）→点击“发票” → 选择税号/自定义税额后填写金额；或直接在订单详情中生成普通发票然后申请。抬头与实名登记需一致。税率与规则以发票为准。若还有其他问题，随时告诉我。",
+      "expected_keywords": [
+        "发票",
+        "税号",
+        "订单"
+      ],
+      "must_not_contain": [
+        "伪造证件"
+      ],
+      "composite": 0.9181,
+      "components": {
+        "format": 1.0,
+        "keyword": 1.0,
+        "lexical": 0.2222,
+        "hallucination": 1.0,
+        "safety": 1.0,
+        "mc": 0.7
+      },
+      "format": {
+        "score": 1.0,
+        "checks": {
+          "non_empty": true,
+          "has_greeting": true,
+          "has_closing": true,
+          "has_structure": true
+        },
+        "length": 133,
         "passed": true
       },
       "keyword": {
@@ -839,12 +837,12 @@
       "lexical": {
         "method": "rouge_l_char",
         "rouge_l_char": {
-          "precision": 0.2712,
-          "recall": 0.1455,
-          "f1": 0.1893
+          "precision": 0.203,
+          "recall": 0.2455,
+          "f1": 0.2222
         },
-        "char_f1": 0.2959,
-        "score": 0.1893
+        "char_f1": 0.4774,
+        "score": 0.2222
       },
       "hallucination": {
         "score": 1.0,
@@ -865,14 +863,14 @@
         "skipped": true
       },
       "passed": true,
-      "answer": "您好。关于您咨询的支付问题问题，建议您以订单页/详情页信息为准。请关注：发票、税号、订单。如还有其他问题，随时告诉我。"
+      "answer": "您好，感谢您的咨询。开具电子发票：请在“我的订单”按顺序提交包裹信息（快递单号/发到地址/收货人姓名）→点击“发票” → 选择税号/自定义税额后填写金额；或直接在订单详情中生成普通发票然后申请。抬头与实名登记需一致。税率与规则以发票为准。若还有其他问题，随时告诉我。"
     },
     {
       "id": "fix_010",
       "category": "账户订单",
       "user": "在吗？怎么修改收货地址？已经付款了。",
       "gold": "您好。修改收货地址：若订单尚未发货，一般可在订单详情中申请修改，或联系客服协助备注；已发货后需承运商支持改址，可能产生费用且不保证成功。请提供订单号与正确省市区+详细地址+联系人电话以便核对。为保护隐私，请勿在公开场合泄露完整证件号。",
-      "prediction": "您好。关于您咨询的账户订单问题，建议您以订单页/详情页信息为准。请关注：地址、发货、订单号。如还有其他问题，随时告诉我。",
+      "prediction": "您好，感谢您的咨询。修改收货地址：若订单尚未发货，请在订单详情中申请修改；已发货后无法改址。请提供订单号与正确省市区+详细地址凭证。如还有其他问题，随时告诉我。",
       "expected_keywords": [
         "地址",
         "发货",
@@ -881,11 +879,11 @@
       "must_not_contain": [
         "百分百到货"
       ],
-      "composite": 0.9185,
+      "composite": 0.9546,
       "components": {
         "format": 1.0,
         "keyword": 1.0,
-        "lexical": 0.226,
+        "lexical": 0.5685,
         "hallucination": 1.0,
         "safety": 1.0,
         "mc": 0.7
@@ -898,7 +896,7 @@
           "has_closing": true,
           "has_structure": true
         },
-        "length": 60,
+        "length": 80,
         "passed": true
       },
       "keyword": {
@@ -917,12 +915,12 @@
       "lexical": {
         "method": "rouge_l_char",
         "rouge_l_char": {
-          "precision": 0.3333,
-          "recall": 0.1709,
-          "f1": 0.226
+          "precision": 0.7,
+          "recall": 0.4786,
+          "f1": 0.5685
         },
-        "char_f1": 0.2938,
-        "score": 0.226
+        "char_f1": 0.599,
+        "score": 0.5685
       },
       "hallucination": {
         "score": 1.0,
@@ -943,14 +941,14 @@
         "skipped": true
       },
       "passed": true,
-      "answer": "您好。关于您咨询的账户订单问题，建议您以订单页/详情页信息为准。请关注：地址、发货、订单号。如还有其他问题，随时告诉我。"
+      "answer": "您好，感谢您的咨询。修改收货地址：若订单尚未发货，请在订单详情中申请修改；已发货后无法改址。请提供订单号与正确省市区+详细地址凭证。如还有其他问题，随时告诉我。"
     },
     {
       "id": "fix_011",
       "category": "商品咨询",
       "user": "纯棉T恤L码黑色还有货吗？",
       "gold": "您好。关于【纯棉T恤】：当前详情页显示为可售状态时一般可正常下单；具体库存以您下单时页面为准。若提示无货，可点“到货通知”或看看相近规格/颜色。需要我帮您对照尺码建议也可以说明您的偏好。如还有其他问题，随时告诉我。",
-      "prediction": "您好。关于您咨询的商品咨询问题，建议您以订单页/详情页信息为准。请关注：库存、详情页、下单。如还有其他问题，随时告诉我。",
+      "prediction": "您好，感谢您的咨询。关于【纯棉T恤L码黑色】：当前详情页显示为可售状态时一般可正常下单；具体库存以您下单时页面为准。若提示无货，请检查商品状态及是否达寄送条件。如还有其他问题，随时告诉我。",
       "expected_keywords": [
         "库存",
         "详情页",
@@ -960,11 +958,11 @@
         "百分百有货",
         "我保证一定"
       ],
-      "composite": 0.93,
+      "composite": 0.966,
       "components": {
         "format": 1.0,
         "keyword": 1.0,
-        "lexical": 0.3353,
+        "lexical": 0.6766,
         "hallucination": 1.0,
         "safety": 1.0,
         "mc": 0.7
@@ -977,7 +975,7 @@
           "has_closing": true,
           "has_structure": true
         },
-        "length": 60,
+        "length": 94,
         "passed": true
       },
       "keyword": {
@@ -996,12 +994,12 @@
       "lexical": {
         "method": "rouge_l_char",
         "rouge_l_char": {
-          "precision": 0.4667,
-          "recall": 0.2617,
-          "f1": 0.3353
+          "precision": 0.7234,
+          "recall": 0.6355,
+          "f1": 0.6766
         },
-        "char_f1": 0.491,
-        "score": 0.3353
+        "char_f1": 0.7164,
+        "score": 0.6766
       },
       "hallucination": {
         "score": 1.0,
@@ -1022,14 +1020,14 @@
         "skipped": true
       },
       "passed": true,
-      "answer": "您好。关于您咨询的商品咨询问题，建议您以订单页/详情页信息为准。请关注：库存、详情页、下单。如还有其他问题，随时告诉我。"
+      "answer": "您好，感谢您的咨询。关于【纯棉T恤L码黑色】：当前详情页显示为可售状态时一般可正常下单；具体库存以您下单时页面为准。若提示无货，请检查商品状态及是否达寄送条件。如还有其他问题，随时告诉我。"
     },
     {
       "id": "fix_012",
       "category": "退换货",
       "user": "便携充电宝充不进电，是质量问题，单号SYN2026042200456，能上门取件吗？",
       "gold": "您好。关于订单 SYN2026042200456：疑似质量问题建议走售后质检。路径：我的订单 → 申请售后 → 选择退货/换货并上传故障照片与视频。是否上门取件、运费承担以售后页说明为准；质量问题通常由商家侧承担。请保留包装与配件以便核对。我们会按平台规则协助处理，但具体方案以质检与售后审核结果为准。",
-      "prediction": "您好。关于您咨询的退换货问题，建议您以订单页/详情页信息为准。请关注：售后、质量、退货。如还有其他问题，随时告诉我。",
+      "prediction": "您好，感谢您的咨询。关于订单 SYN2026042200456 的问题：电量不足通常由设备耗尽或连接不正确引起。建议：请检查设备是否符合使用要求（电源适配器、兼容性等）；若仍不合格，请提供凭证我们协助鉴定。需要我继续帮您处理也可以直接说哦。",
       "expected_keywords": [
         "售后",
         "质量",
@@ -1038,11 +1036,11 @@
       "must_not_contain": [
         "绝对能退"
       ],
-      "composite": 0.9159,
+      "composite": 0.665,
       "components": {
         "format": 1.0,
-        "keyword": 1.0,
-        "lexical": 0.201,
+        "keyword": 0.0,
+        "lexical": 0.3173,
         "hallucination": 1.0,
         "safety": 1.0,
         "mc": 0.7
@@ -1055,31 +1053,31 @@
           "has_closing": true,
           "has_structure": true
         },
-        "length": 58,
+        "length": 120,
         "passed": true
       },
       "keyword": {
-        "score": 1.0,
-        "hit_rate": 1.0,
-        "found": [
+        "score": 0.0,
+        "hit_rate": 0.0,
+        "found": [],
+        "missing": [
           "售后",
           "质量",
           "退货"
         ],
-        "missing": [],
         "forbidden_hits": [],
         "n_expected": 3,
-        "passed": true
+        "passed": false
       },
       "lexical": {
         "method": "rouge_l_char",
         "rouge_l_char": {
-          "precision": 0.3621,
-          "recall": 0.1391,
-          "f1": 0.201
+          "precision": 0.3583,
+          "recall": 0.2848,
+          "f1": 0.3173
         },
-        "char_f1": 0.3349,
-        "score": 0.201
+        "char_f1": 0.4207,
+        "score": 0.3173
       },
       "hallucination": {
         "score": 1.0,
@@ -1099,15 +1097,15 @@
         "correct": null,
         "skipped": true
       },
-      "passed": true,
-      "answer": "您好。关于您咨询的退换货问题，建议您以订单页/详情页信息为准。请关注：售后、质量、退货。如还有其他问题，随时告诉我。"
+      "passed": false,
+      "answer": "您好，感谢您的咨询。关于订单 SYN2026042200456 的问题：电量不足通常由设备耗尽或连接不正确引起。建议：请检查设备是否符合使用要求（电源适配器、兼容性等）；若仍不合格，请提供凭证我们协助鉴定。需要我继续帮您处理也可以直接说哦。"
     },
     {
       "id": "fix_013",
       "category": "优惠活动",
       "user": "官方旗舰白色机械键盘，店铺券和平台券能一起用吗？再给我便宜50行不行？",
       "gold": "您好。店铺券、平台券与满减是否可叠加，以结算页最终优惠明细为准；活动商品、特殊价商品有时会排除用券。我无法在结算页之外额外承诺再减50元。请在结算页核对券门槛与互斥规则；若券灰显，多半是适用商品/门槛不满足。祝您购物愉快！",
-      "prediction": "您好。关于您咨询的优惠活动问题，建议您以订单页/详情页信息为准。请关注：结算页、叠加、优惠。如还有其他问题，随时告诉我。",
+      "prediction": "您好，感谢您的咨询。优惠说明：店铺券、平台券与满减是否可叠加，以结算页最终优惠明细为准；活动商品、特殊价商品有时会排除用券。券需在有效期内领取并在适用店铺/平台使用；过期券一般无法补发。若结算时券不可用，请检查门槛金额、适用商品与互斥规则。我不会承诺结算页未展示的额外折扣。如还有其他问题，随时告诉我。",
       "expected_keywords": [
         "结算页",
         "叠加",
@@ -1117,11 +1115,11 @@
         "再给你减",
         "我保证一定"
       ],
-      "composite": 0.9132,
+      "composite": 0.947,
       "components": {
         "format": 1.0,
         "keyword": 1.0,
-        "lexical": 0.1754,
+        "lexical": 0.4962,
         "hallucination": 1.0,
         "safety": 1.0,
         "mc": 0.7
@@ -1134,7 +1132,7 @@
           "has_closing": true,
           "has_structure": true
         },
-        "length": 60,
+        "length": 151,
         "passed": true
       },
       "keyword": {
@@ -1153,12 +1151,12 @@
       "lexical": {
         "method": "rouge_l_char",
         "rouge_l_char": {
-          "precision": 0.25,
-          "recall": 0.1351,
-          "f1": 0.1754
+          "precision": 0.4305,
+          "recall": 0.5856,
+          "f1": 0.4962
         },
-        "char_f1": 0.3509,
-        "score": 0.1754
+        "char_f1": 0.6565,
+        "score": 0.4962
       },
       "hallucination": {
         "score": 1.0,
@@ -1179,14 +1177,14 @@
         "skipped": true
       },
       "passed": true,
-      "answer": "您好。关于您咨询的优惠活动问题，建议您以订单页/详情页信息为准。请关注：结算页、叠加、优惠。如还有其他问题，随时告诉我。"
+      "answer": "您好，感谢您的咨询。优惠说明：店铺券、平台券与满减是否可叠加，以结算页最终优惠明细为准；活动商品、特殊价商品有时会排除用券。券需在有效期内领取并在适用店铺/平台使用；过期券一般无法补发。若结算时券不可用，请检查门槛金额、适用商品与互斥规则。我不会承诺结算页未展示的额外折扣。如还有其他问题，随时告诉我。"
     },
     {
       "id": "fix_014",
       "category": "支付问题",
       "user": "可以用花呗分期吗？费率多少？",
       "gold": "您好，我是智能客服小助，很乐意为您解答。是否支持花呗/信用卡分期以结算页展示的支付方式为准；部分活动价或虚拟商品可能不支持。费率与期数由支付机构在支付页展示，请在支付前确认。我这边无法给出固定费率承诺。",
-      "prediction": "您好。关于您咨询的支付问题问题，建议您以订单页/详情页信息为准。请关注：支付、结算页、花呗。如还有其他问题，随时告诉我。",
+      "prediction": "您好，感谢您的咨询。是否支持支付方式请以结算页详情为准；费率与期数有关。若提示无资金，请检查限额与适用人群。需要我继续帮您处理也可以直接说哦。",
       "expected_keywords": [
         "支付",
         "结算页",
@@ -1195,11 +1193,11 @@
       "must_not_contain": [
         "一定能分期"
       ],
-      "composite": 0.9143,
+      "composite": 0.8401,
       "components": {
         "format": 1.0,
-        "keyword": 1.0,
-        "lexical": 0.1863,
+        "keyword": 0.6667,
+        "lexical": 0.314,
         "hallucination": 1.0,
         "safety": 1.0,
         "mc": 0.7
@@ -1212,18 +1210,19 @@
           "has_closing": true,
           "has_structure": true
         },
-        "length": 60,
+        "length": 71,
         "passed": true
       },
       "keyword": {
-        "score": 1.0,
-        "hit_rate": 1.0,
+        "score": 0.6667,
+        "hit_rate": 0.6667,
         "found": [
           "支付",
-          "结算页",
+          "结算页"
+        ],
+        "missing": [
           "花呗"
         ],
-        "missing": [],
         "forbidden_hits": [],
         "n_expected": 3,
         "passed": true
@@ -1231,12 +1230,12 @@
       "lexical": {
         "method": "rouge_l_char",
         "rouge_l_char": {
-          "precision": 0.25,
-          "recall": 0.1485,
-          "f1": 0.1863
+          "precision": 0.3803,
+          "recall": 0.2673,
+          "f1": 0.314
         },
-        "char_f1": 0.3354,
-        "score": 0.1863
+        "char_f1": 0.4186,
+        "score": 0.314
       },
       "hallucination": {
         "score": 1.0,
@@ -1257,14 +1256,14 @@
         "skipped": true
       },
       "passed": true,
-      "answer": "您好。关于您咨询的支付问题问题，建议您以订单页/详情页信息为准。请关注：支付、结算页、花呗。如还有其他问题，随时告诉我。"
+      "answer": "您好，感谢您的咨询。是否支持支付方式请以结算页详情为准；费率与期数有关。若提示无资金，请检查限额与适用人群。需要我继续帮您处理也可以直接说哦。"
     },
     {
       "id": "fix_015",
       "category": "账户订单",
       "user": "账号绑定的手机号怎么换？旧手机丢了。",
       "gold": "您好，感谢您的咨询。更换绑定手机：请在“账户设置 → 账号与安全”按页面验证流程操作。手机已丢失时，请走账号申诉并准备订单/实名相关凭证。客服无法在未验证身份时直接改绑，以保障账户安全。祝您购物愉快！",
-      "prediction": "您好。关于您咨询的账户订单问题，建议您以订单页/详情页信息为准。请关注：账户、验证、申诉。如还有其他问题，随时告诉我。",
+      "prediction": "您好，感谢您的咨询。更换绑定手机：请在“我的订单”按顺序筛选对应订单，选择该订单后可修改收货地址或添加运输方式；需支付运费。更换密码：进入订单详情页直接修改密码即可使用；若丢失，需在订单页申请重置。如还有其他问题，随时告诉我。",
       "expected_keywords": [
         "账户",
         "验证",
@@ -1273,11 +1272,11 @@
       "must_not_contain": [
         "直接帮你改"
       ],
-      "composite": 0.9159,
+      "composite": 0.6622,
       "components": {
         "format": 1.0,
-        "keyword": 1.0,
-        "lexical": 0.2013,
+        "keyword": 0.0,
+        "lexical": 0.2911,
         "hallucination": 1.0,
         "safety": 1.0,
         "mc": 0.7
@@ -1290,31 +1289,31 @@
           "has_closing": true,
           "has_structure": true
         },
-        "length": 59,
+        "length": 113,
         "passed": true
       },
       "keyword": {
-        "score": 1.0,
-        "hit_rate": 1.0,
-        "found": [
+        "score": 0.0,
+        "hit_rate": 0.0,
+        "found": [],
+        "missing": [
           "账户",
           "验证",
           "申诉"
         ],
-        "missing": [],
         "forbidden_hits": [],
         "n_expected": 3,
-        "passed": true
+        "passed": false
       },
       "lexical": {
         "method": "rouge_l_char",
         "rouge_l_char": {
-          "precision": 0.2712,
-          "recall": 0.16,
-          "f1": 0.2013
+          "precision": 0.2743,
+          "recall": 0.31,
+          "f1": 0.2911
         },
-        "char_f1": 0.3899,
-        "score": 0.2013
+        "char_f1": 0.385,
+        "score": 0.2911
       },
       "hallucination": {
         "score": 1.0,
@@ -1334,15 +1333,15 @@
         "correct": null,
         "skipped": true
       },
-      "passed": true,
-      "answer": "您好。关于您咨询的账户订单问题，建议您以订单页/详情页信息为准。请关注：账户、验证、申诉。如还有其他问题，随时告诉我。"
+      "passed": false,
+      "answer": "您好，感谢您的咨询。更换绑定手机：请在“我的订单”按顺序筛选对应订单，选择该订单后可修改收货地址或添加运输方式；需支付运费。更换密码：进入订单详情页直接修改密码即可使用；若丢失，需在订单页申请重置。如还有其他问题，随时告诉我。"
     },
     {
       "id": "fix_016",
       "category": "投诉建议",
       "user": "你们客服态度太差了！防晒霜物流暴力分拣包装都破了！",
       "gold": "您好。非常理解您的不满，给您带来不好的体验我们深表歉意。关于包装破损，请补充订单号与破损照片，我将协助登记售后：可申请退换或按规则协商补偿。处理进度以售后工单为准；请保留包裹与聊天记录。我们会认真对待您的建议，持续改进服务。",
-      "prediction": "您好。关于您咨询的投诉建议问题，建议您以订单页/详情页信息为准。请关注：歉意、售后、订单号。如还有其他问题，随时告诉我。",
+      "prediction": "您好，很高兴为您服务。非常理解您的不满，给您带来不好的体验我们深表歉意。请您补充问题类型（破损/错发/态度/etc.）与照片凭证，我将协助登记售后或升级专员跟进：可退换、补发或按规则协商补偿。处理进度以售后工单为准；请您保留包裹与聊天记录。我们会认真对待您的建议，持续改进服务。如还有其他问题，随时告诉我。",
       "expected_keywords": [
         "歉意",
         "售后",
@@ -1353,11 +1352,11 @@
         "你自己",
         "傻逼"
       ],
-      "composite": 0.9143,
+      "composite": 0.8857,
       "components": {
         "format": 1.0,
-        "keyword": 1.0,
-        "lexical": 0.186,
+        "keyword": 0.6667,
+        "lexical": 0.7472,
         "hallucination": 1.0,
         "safety": 1.0,
         "mc": 0.7
@@ -1370,18 +1369,19 @@
           "has_closing": true,
           "has_structure": true
         },
-        "length": 60,
+        "length": 153,
         "passed": true
       },
       "keyword": {
-        "score": 1.0,
-        "hit_rate": 1.0,
+        "score": 0.6667,
+        "hit_rate": 0.6667,
         "found": [
           "歉意",
-          "售后",
+          "售后"
+        ],
+        "missing": [
           "订单号"
         ],
-        "missing": [],
         "forbidden_hits": [],
         "n_expected": 3,
         "passed": true
@@ -1389,12 +1389,12 @@
       "lexical": {
         "method": "rouge_l_char",
         "rouge_l_char": {
-          "precision": 0.2667,
-          "recall": 0.1429,
-          "f1": 0.186
+          "precision": 0.6471,
+          "recall": 0.8839,
+          "f1": 0.7472
         },
-        "char_f1": 0.3372,
-        "score": 0.186
+        "char_f1": 0.7623,
+        "score": 0.7472
       },
       "hallucination": {
         "score": 1.0,
@@ -1415,14 +1415,14 @@
         "skipped": true
       },
       "passed": true,
-      "answer": "您好。关于您咨询的投诉建议问题，建议您以订单页/详情页信息为准。请关注：歉意、售后、订单号。如还有其他问题，随时告诉我。"
+      "answer": "您好，很高兴为您服务。非常理解您的不满，给您带来不好的体验我们深表歉意。请您补充问题类型（破损/错发/态度/etc.）与照片凭证，我将协助登记售后或升级专员跟进：可退换、补发或按规则协商补偿。处理进度以售后工单为准；请您保留包裹与聊天记录。我们会认真对待您的建议，持续改进服务。如还有其他问题，随时告诉我。"
     },
     {
       "id": "fix_017",
       "category": "退换货",
       "user": "空气炸锅用了一个月不想要了，不喜欢颜色，能七天无理由吗？",
       "gold": "您好，感谢您的咨询。七天无理由一般适用于签收后7天内且商品完好、不影响二次销售的情况。您提到已使用约一个月，通常已超过7天无理由时效，可能无法按七天无理由退货；若存在质量问题，可走售后质检。最终以订单页售后规则与审核为准。建议打开“我的订单”查看该单是否仍显示可申请售后。",
-      "prediction": "您好。关于您咨询的退换货问题，建议您以订单页/详情页信息为准。请关注：7天、售后、时效。如还有其他问题，随时告诉我。",
+      "prediction": "您好，感谢您的咨询。关于您的订单的退换货：一般支持签收后7天无理由（商品完好、配件齐全、不影响二次销售），质量问题可走售后质检。建议路径：我的订单 → 申请售后 → 选择退货/换货并上传凭证。运费承担规则以售后页说明为准；质量问题通常由商家侧承担。请勿在未创建售后单前自行丢弃包装，以便核对。如还有其他问题，随时告诉我。",
       "expected_keywords": [
         "7天",
         "售后",
@@ -1432,11 +1432,11 @@
         "绝对能退",
         "一定可以退"
       ],
-      "composite": 0.9186,
+      "composite": 0.8454,
       "components": {
         "format": 1.0,
-        "keyword": 1.0,
-        "lexical": 0.2268,
+        "keyword": 0.6667,
+        "lexical": 0.3649,
         "hallucination": 1.0,
         "safety": 1.0,
         "mc": 0.7
@@ -1449,18 +1449,19 @@
           "has_closing": true,
           "has_structure": true
         },
-        "length": 58,
+        "length": 160,
         "passed": true
       },
       "keyword": {
-        "score": 1.0,
-        "hit_rate": 1.0,
+        "score": 0.6667,
+        "hit_rate": 0.6667,
         "found": [
           "7天",
-          "售后",
+          "售后"
+        ],
+        "missing": [
           "时效"
         ],
-        "missing": [],
         "forbidden_hits": [],
         "n_expected": 3,
         "passed": true
@@ -1468,12 +1469,12 @@
       "lexical": {
         "method": "rouge_l_char",
         "rouge_l_char": {
-          "precision": 0.3793,
-          "recall": 0.1618,
-          "f1": 0.2268
+          "precision": 0.3375,
+          "recall": 0.3971,
+          "f1": 0.3649
         },
-        "char_f1": 0.3711,
-        "score": 0.2268
+        "char_f1": 0.5541,
+        "score": 0.3649
       },
       "hallucination": {
         "score": 1.0,
@@ -1494,14 +1495,14 @@
         "skipped": true
       },
       "passed": true,
-      "answer": "您好。关于您咨询的退换货问题，建议您以订单页/详情页信息为准。请关注：7天、售后、时效。如还有其他问题，随时告诉我。"
+      "answer": "您好，感谢您的咨询。关于您的订单的退换货：一般支持签收后7天无理由（商品完好、配件齐全、不影响二次销售），质量问题可走售后质检。建议路径：我的订单 → 申请售后 → 选择退货/换货并上传凭证。运费承担规则以售后页说明为准；质量问题通常由商家侧承担。请勿在未创建售后单前自行丢弃包装，以便核对。如还有其他问题，随时告诉我。"
     },
     {
       "id": "fix_018",
       "category": "商品咨询",
       "user": "用户问：“这个电动牙刷有没有货？”下列哪项是最合适的客服策略？\nA. 直接编造库存数字让用户下单\nB. 引导以详情页/下单页实时库存为准，并可建议到货通知\nC. 承诺明天一定补货\nD. 拒绝回答任何商品问题",
       "gold": null,
-      "prediction": "B",
+      "prediction": "在遇到疑问时，请告诉我您的问题，我将按原路返回协助解答。关于“关于本店自营电动牙刷，现在有什么活动？”，通常会展示活动概要（券、满减规则）及限制（券与规则相互转换）。实际奉行活动以结算页为准。",
       "expected_keywords": [
         "库存",
         "详情页"
@@ -1509,25 +1510,25 @@
       "must_not_contain": [
         "百分百到货"
       ],
-      "composite": 0.5556,
+      "composite": 0.6417,
       "components": {
-        "format": 0.0,
+        "format": 0.85,
         "keyword": 0.0,
         "lexical": 0.7,
         "hallucination": 1.0,
         "safety": 1.0,
-        "mc": 1.0
+        "mc": 0.0
       },
       "format": {
-        "score": 0.0,
+        "score": 0.85,
         "checks": {
-          "non_empty": false,
+          "non_empty": true,
           "has_greeting": false,
           "has_closing": false,
-          "has_structure": false
+          "has_structure": true
         },
-        "length": 1,
-        "passed": false
+        "length": 96,
+        "passed": true
       },
       "keyword": {
         "score": 0.0,
@@ -1559,19 +1560,19 @@
         "passed": true
       },
       "mc": {
-        "score": 1.0,
-        "correct": true,
+        "score": 0.0,
+        "correct": false,
         "skipped": false
       },
       "passed": false,
-      "answer": "B"
+      "answer": "在遇到疑问时，请告诉我您的问题，我将按原路返回协助解答。关于“关于本店自营电动牙刷，现在有什么活动？”，通常会展示活动概要（券、满减规则）及限制（券与规则相互转换）。实际奉行活动以结算页为准。"
     },
     {
       "id": "fix_019",
       "category": "物流查询",
       "user": "订单B202603019988物流三天没动了，帮我催一下。",
       "gold": "您好，很高兴为您服务。已记录您的催查诉求（订单 B202603019988）。请您同时在订单详情页查看最新轨迹与承运商电话；若显示“运输中”长时间停滞，我们可协助向仓储/物流侧登记催促，但具体时效以承运商更新为准，我无法承诺确切到达日。有新的轨迹异常（如退回、异常件）请随时告知。",
-      "prediction": "您好。关于您咨询的物流查询问题，建议您以订单页/详情页信息为准。请关注：物流、催、订单。如还有其他问题，随时告诉我。",
+      "prediction": "您好，感谢您的咨询。很抱歉让您久等。请您提供订单号，我才能按单协助核对物流进度；您也可以在订单详情页直接查看轨迹。若长时间无更新，可提供凭证后我们帮您登记催查。如还有其他问题，随时告诉我。",
       "expected_keywords": [
         "物流",
         "催",
@@ -1580,11 +1581,11 @@
       "must_not_contain": [
         "明天一定到"
       ],
-      "composite": 0.9171,
+      "composite": 0.9271,
       "components": {
         "format": 1.0,
         "keyword": 1.0,
-        "lexical": 0.2121,
+        "lexical": 0.3077,
         "hallucination": 1.0,
         "safety": 1.0,
         "mc": 0.7
@@ -1597,7 +1598,7 @@
           "has_closing": true,
           "has_structure": true
         },
-        "length": 58,
+        "length": 94,
         "passed": true
       },
       "keyword": {
@@ -1616,12 +1617,12 @@
       "lexical": {
         "method": "rouge_l_char",
         "rouge_l_char": {
-          "precision": 0.3621,
-          "recall": 0.15,
-          "f1": 0.2121
+          "precision": 0.383,
+          "recall": 0.2571,
+          "f1": 0.3077
         },
-        "char_f1": 0.3535,
-        "score": 0.2121
+        "char_f1": 0.4701,
+        "score": 0.3077
       },
       "hallucination": {
         "score": 1.0,
@@ -1642,14 +1643,14 @@
         "skipped": true
       },
       "passed": true,
-      "answer": "您好。关于您咨询的物流查询问题，建议您以订单页/详情页信息为准。请关注：物流、催、订单。如还有其他问题，随时告诉我。"
+      "answer": "您好，感谢您的咨询。很抱歉让您久等。请您提供订单号，我才能按单协助核对物流进度；您也可以在订单详情页直接查看轨迹。若长时间无更新，可提供凭证后我们帮您登记催查。如还有其他问题，随时告诉我。"
     },
     {
       "id": "fix_020",
       "category": "支付问题",
       "user": "我好像重复支付了两笔，订单号ORD-2026-11002，钱什么时候退？",
       "gold": "您好。关于疑似重复支付（订单 ORD-2026-11002）：请先在支付渠道账单中核对两笔流水号与金额。若一笔成功生成订单、另一笔未生成订单，未成功占用的预授权/扣款一般会在1-3个工作日自动退回，超时未到账请提供流水号我们协助核查。请勿继续高频重复点击支付。具体到账时间以银行/支付机构为准。",
-      "prediction": "您好。关于您咨询的支付问题问题，建议您以订单页/详情页信息为准。请关注：支付、退回、流水。如还有其他问题，随时告诉我。",
+      "prediction": "您好，感谢您的咨询。关于订单 ORD-2026-11002 的退换货：一般支持签收后7天无理由（商品完好、配件齐全、不影响二次销售），质量问题可走售后质检。建议路径：我的订单 → 申请售后 → 选择退货/换货并上传凭证。运费承担规则以售后页说明为准；质量问题通常由商家侧承担。请勿在未创建售后单前自行丢弃包装，以便核对。如还有其他问题，随时告诉我。",
       "expected_keywords": [
         "支付",
         "退回",
@@ -1658,11 +1659,11 @@
       "must_not_contain": [
         "立刻到账保证"
       ],
-      "composite": 0.9152,
+      "composite": 0.6545,
       "components": {
         "format": 1.0,
-        "keyword": 1.0,
-        "lexical": 0.1942,
+        "keyword": 0.0,
+        "lexical": 0.2181,
         "hallucination": 1.0,
         "safety": 1.0,
         "mc": 0.7
@@ -1675,31 +1676,31 @@
           "has_closing": true,
           "has_structure": true
         },
-        "length": 59,
+        "length": 174,
         "passed": true
       },
       "keyword": {
-        "score": 1.0,
-        "hit_rate": 1.0,
-        "found": [
+        "score": 0.0,
+        "hit_rate": 0.0,
+        "found": [],
+        "missing": [
           "支付",
           "退回",
           "流水"
         ],
-        "missing": [],
         "forbidden_hits": [],
         "n_expected": 3,
-        "passed": true
+        "passed": false
       },
       "lexical": {
         "method": "rouge_l_char",
         "rouge_l_char": {
-          "precision": 0.339,
-          "recall": 0.1361,
-          "f1": 0.1942
+          "precision": 0.2011,
+          "recall": 0.2381,
+          "f1": 0.2181
         },
-        "char_f1": 0.2913,
-        "score": 0.1942
+        "char_f1": 0.3427,
+        "score": 0.2181
       },
       "hallucination": {
         "score": 1.0,
@@ -1719,8 +1720,8 @@
         "correct": null,
         "skipped": true
       },
-      "passed": true,
-      "answer": "您好。关于您咨询的支付问题问题，建议您以订单页/详情页信息为准。请关注：支付、退回、流水。如还有其他问题，随时告诉我。"
+      "passed": false,
+      "answer": "您好，感谢您的咨询。关于订单 ORD-2026-11002 的退换货：一般支持签收后7天无理由（商品完好、配件齐全、不影响二次销售），质量问题可走售后质检。建议路径：我的订单 → 申请售后 → 选择退货/换货并上传凭证。运费承担规则以售后页说明为准；质量问题通常由商家侧承担。请勿在未创建售后单前自行丢弃包装，以便核对。如还有其他问题，随时告诉我。"
     }
   ]
 }

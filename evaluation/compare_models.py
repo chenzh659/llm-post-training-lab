@@ -74,29 +74,10 @@ def _weak_mock_generate(item: dict[str, Any], noise: str = "base") -> str:
 
 
 def _try_load_peft(model_name: str, base_model: str | None, device: str):
-    """Load full model or PEFT adapter on top of base."""
-    from pathlib import Path as P
-
-    p = P(model_name)
-    # Adapter dir heuristic
-    if p.is_dir() and (p / "adapter_config.json").is_file():
-        import torch
-        from peft import PeftModel
-        from transformers import AutoModelForCausalLM, AutoTokenizer
-
-        base = base_model or "Qwen/Qwen2.5-0.5B-Instruct"
-        tok = AutoTokenizer.from_pretrained(base, trust_remote_code=True)
-        if tok.pad_token is None:
-            tok.pad_token = tok.eos_token
-        dtype = torch.float32
-        if device == "cuda":
-            dtype = torch.bfloat16 if torch.cuda.is_bf16_supported() else torch.float16
-        base_m = AutoModelForCausalLM.from_pretrained(base, trust_remote_code=True, torch_dtype=dtype)
-        model = PeftModel.from_pretrained(base_m, str(p))
-        model.to(device)
-        model.eval()
-        return model, tok, device
-    return _load_model_and_tokenizer(model_name, device=device)
+    """Load full model or PEFT adapter on top of base (paths relative to project root)."""
+    return _load_model_and_tokenizer(
+        model_name, device=device, base_model=base_model
+    )
 
 
 def generate_for_model(

@@ -1,0 +1,27 @@
+============================================================
+llm-post-training-lab :: compare models
+============================================================
+  base: Qwen/Qwen2.5-0.5B-Instruct
+  sft: outputs/sft
+  dpo: outputs/dpo
+[compare] generating for base <- Qwen/Qwen2.5-0.5B-Instruct
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/290 [00:00<?, ?it/s]Loading weights: 100%|██████████| 290/290 [00:00<00:00, 3006.51it/s]
+[compare] generating for sft <- outputs/sft
+Loading weights:   0%|          | 0/290 [00:00<?, ?it/s]Loading weights: 100%|██████████| 290/290 [00:00<00:00, 3529.70it/s]
+W0718 14:22:40.789000 70268 site-packages\torch\utils\flop_counter.py:29] triton not found; flop counting will not work for triton kernels
+[compare] generating for dpo <- outputs/dpo
+Loading weights:   0%|          | 0/290 [00:00<?, ?it/s]Loading weights:  63%|██████▎   | 182/290 [00:00<00:00, 1813.56it/s]Loading weights: 100%|██████████| 290/290 [00:00<00:00, 2154.74it/s]
+
+Ranking:
+  #1 dpo: composite=0.8661 pass=0.8 hallu=0.0
+  #2 sft: composite=0.8599 pass=0.75 hallu=0.05
+  #3 base: composite=0.7365 pass=0.25 hallu=0.0
+
+Pairwise win-rates:
+  base vs sft: 15.00% / 70.00% (tie 15.00%)
+  base vs dpo: 15.00% / 70.00% (tie 15.00%)
+  sft vs dpo: 10.00% / 5.00% (tie 85.00%)
+
+wrote: D:\coding place\a_project\github_place\for resume\llm-post-training-lab\reports\comparison.json

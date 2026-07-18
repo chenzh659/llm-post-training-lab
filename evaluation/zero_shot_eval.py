@@ -39,7 +39,9 @@ def _load_model_and_tokenizer(
     trust_remote_code: bool = True,
     torch_dtype: str = "auto",
     device: str | None = None,
+    base_model: str | None = None,
 ):
+    """Load a full HF causal LM, or a PEFT adapter directory on top of base_model."""
     import torch
     from transformers import AutoModelForCausalLM, AutoTokenizer
 
@@ -52,12 +54,45 @@ def _load_model_and_tokenizer(
     elif torch_dtype == "auto" and dev == "cuda":
         dtype = torch.bfloat16 if torch.cuda.is_bf16_supported() else torch.float16
 
-    tok = AutoTokenizer.from_pretrained(model_name, trust_remote_code=trust_remote_code)
+    root = project_root()
+    path = Path(model_name)
+    if not path.is_absolute():
+        cand = root / model_name
+        if cand.exists():
+            path = cand
+
+    # PEFT adapter directory
+    if path.is_dir() and (path / "adapter_config.json").is_file():
+        import json
+
+        from peft import PeftModel
+
+        base = base_model
+        if not base:
+            try:
+                with (path / "adapter_config.json").open("r", encoding="utf-8") as f:
+                    base = (json.load(f) or {}).get("base_model_name_or_path")
+            except Exception:
+                base = None
+        base = base or "Qwen/Qwen2.5-0.5B-Instruct"
+        tok = AutoTokenizer.from_pretrained(base, trust_remote_code=trust_remote_code)
+        if tok.pad_token is None:
+            tok.pad_token = tok.eos_token
+        base_m = AutoModelForCausalLM.from_pretrained(
+            base, trust_remote_code=trust_remote_code, torch_dtype=dtype
+        )
+        model = PeftModel.from_pretrained(base_m, str(path))
+        model.to(dev)
+        model.eval()
+        return model, tok, dev
+
+    load_name = str(path) if path.exists() else model_name
+    tok = AutoTokenizer.from_pretrained(load_name, trust_remote_code=trust_remote_code)
     if tok.pad_token is None:
         tok.pad_token = tok.eos_token
 
     model = AutoModelForCausalLM.from_pretrained(
-        model_name,
+        load_name,
         trust_remote_code=trust_remote_code,
         torch_dtype=dtype,
     )
@@ -119,6 +154,7 @@ def mock_generate(item: dict[str, Any]) -> str:
 def run_zero_shot(
     *,
     model_name: str = "Qwen/Qwen2.5-0.5B-Instruct",
+    base_model: str | None = None,
     test_path: str | Path | None = None,
     max_samples: int | None = 50,
     max_new_tokens: int = 256,
@@ -145,7 +181,9 @@ def run_zero_shot(
     if not mock and not predictions_path:
         try:
             reset_peak_gpu_memory()
-            model, tok, device = _load_model_and_tokenizer(model_name)
+            model, tok, device = _load_model_and_tokenizer(
+                model_name, base_model=base_model
+            )
         except Exception as e:  # pragma: no cover
             print(f"[warn] model load failed ({e}); falling back to --mock generation")
             mock = True
@@ -236,7 +274,13 @@ def _by_category(results: list[dict[str, Any]]) -> dict[str, Any]:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Zero-shot eval of base model on CS test suite")
     parser.add_argument("--config", type=str, default="configs/eval.yaml")
-    parser.add_argument("--model", type=str, default=None, help="HF id or local path")
+    parser.add_argument("--model", type=str, default=None, help="HF id, full checkpoint, or PEFT adapter dir")
+    parser.add_argument(
+        "--base-model",
+        type=str,
+        default=None,
+        help="Base HF id when --model is a PEFT adapter directory",
+    )
     parser.add_argument("--test-path", type=str, default=None)
     parser.add_argument("--max-samples", type=int, default=None)
     parser.add_argument("--max-new-tokens", type=int, default=None)
@@ -259,7 +303,8 @@ def main(argv: list[str] | None = None) -> int:
     model_cfg = cfg.get("model") or {}
     data_cfg = cfg.get("data") or {}
 
-    model_name = args.model or model_cfg.get("base_model") or model_cfg.get("name") or "Qwen/Qwen2.5-0.5B-Instruct"
+    model_name = args.model or model_cfg.get("name") or "Qwen/Qwen2.5-0.5B-Instruct"
+    base_model = args.base_model or model_cfg.get("base_model")
     max_samples = args.max_samples
     if max_samples is None:
         max_samples = data_cfg.get("max_samples") or data_cfg.get("sample_size") or 50
@@ -270,10 +315,11 @@ def main(argv: list[str] | None = None) -> int:
     print("=" * 60)
     print("llm-post-training-lab :: zero-shot eval")
     print("=" * 60)
-    print(f"model: {model_name}  mock={args.mock}")
+    print(f"model: {model_name}  base={base_model}  mock={args.mock}")
 
     report = run_zero_shot(
         model_name=model_name,
+        base_model=base_model,
         test_path=args.test_path,
         max_samples=int(max_samples) if max_samples else None,
         max_new_tokens=int(max_new),

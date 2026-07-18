@@ -1,0 +1,6 @@
+============================================================
+llm-post-training-lab :: error analysis
+============================================================
+n=20 error_rate=0.0
+wrote: D:\coding place\a_project\github_place\for resume\llm-post-training-lab\reports\error_analysis.json
+wrote: D:\coding place\a_project\github_place\for resume\llm-post-training-lab\reports\error_analysis.md

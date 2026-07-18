@@ -1,0 +1,13 @@
+findfont: Failed to find font weight medium, now using 400.
+findfont: Failed to find font weight medium, now using 400.
+findfont: Failed to find font weight medium, now using 400.
+Wrote 9 figures -> D:\coding place\a_project\github_place\for resume\llm-post-training-lab\docs\assets
+  - category_distribution.png
+  - data_pipeline_stats.png
+  - error_taxonomy.png
+  - length_histogram.png
+  - loss_vs_quality.png
+  - model_comparison.png
+  - pipeline.png
+  - serving_bench.png
+  - win_rates.png

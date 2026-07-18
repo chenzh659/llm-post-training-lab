@@ -60,14 +60,32 @@
 - DPO 后期 `rewards/accuracies` ≈ **1.0**，margin 上升（chosen↑ / rejected↓）
 - 明细：[`reports/sft_train_metrics.json`](reports/sft_train_metrics.json) · [`reports/dpo_train_metrics.json`](reports/dpo_train_metrics.json) · 训练日志 `reports/*_train_log.txt`
 
-> **Loss ≠ Quality：** 上表是过程量。业务决策仍看 Stage 7–8 规则评测；图中 Base/SFT/DPO 对比目前仍以 **demo mock 评测** 为主（真训后需重跑 `05_eval_compare.py` 刷新）。
+### 离线规则评测（真生成 · `mock: false` · n=20 fixture）
+
+在同一 GPU 上对 **Base / SFT adapter / DPO adapter** 做贪心生成 + 规则裁判（2026-07-18）：
+
+| 模型 | mean_composite | pass_rate | hallucination_rate |
+|------|---------------:|----------:|-------------------:|
+| **DPO** (`outputs/dpo`) | **0.866** | **0.80** | **0.00** |
+| **SFT** (`outputs/sft`) | 0.860 | 0.75 | 0.05 |
+| **Base** (`Qwen2.5-0.5B-Instruct`) | 0.737 | 0.25 | 0.00 |
+
+成对胜率（规则裁判）：
+
+| 对局 | A 胜 | B 胜 | 平局 |
+|------|-----:|-----:|-----:|
+| base vs sft | 15% | **70%** | 15% |
+| base vs dpo | 15% | **70%** | 15% |
+| sft vs dpo | 10% | 5% | **85%** |
+
+> 排序 **DPO ≳ SFT ≫ Base**。SFT/DPO 接近（多数平局），DPO 在 pass/幻觉上略优。  
+> 产物：[`reports/comparison.json`](reports/comparison.json) · [`reports/zero_shot_results.json`](reports/zero_shot_results.json) · 图 `docs/assets/model_comparison.png` / `win_rates.png`。
 
 ---
 
 ## 结果速览（数据与评测图表）
 
-> 数据工程图基于仓库合成数据；模型对比 / 胜率 / serving 图来自 `reports/*.json`（评测侧可为 demo mock）。  
-> 真训后请重跑评测再执行 `python scripts/09_plot_reports.py`。
+> 数据工程图基于仓库合成数据；**模型对比 / 胜率图已用真实 Base·SFT·DPO 生成刷新**。Serving 图仍可为 demo mock。
 
 ### 数据工程
 

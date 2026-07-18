@@ -3,7 +3,7 @@
 > **Domain:** 中文电商智能客服助手  
 > **Base model:** `Qwen/Qwen2.5-0.5B-Instruct`（真训默认 / demo）· 可选 `Qwen2.5-1.5B-Instruct`  
 > **Seed:** 42  
-> **Mode:** **Real GPU QLoRA 已完成**（RTX 4060 Laptop 8GB）；离线规则评测图仍可为 demo mock  
+> **Mode:** **Real GPU QLoRA + 真实 Base/SFT/DPO 离线评测已完成**（RTX 4060 Laptop 8GB）  
 > **Date:** 2026-07-18  
 
 ---
@@ -143,38 +143,50 @@ python scripts/01_build_data.py --sft-samples 64 --pref-pairs 32 --skip-plots
 
 ## 7. Stage 7 — 离线综合评测
 
-### 7.1 Zero-shot / mock 基线
+### 7.1 Zero-shot on DPO（真生成）
 
-来源：`reports/zero_shot_results.json`（`--mock` 时为规则模板生成）。
+来源：`reports/zero_shot_results.json`（`mock: false`，CUDA 加载 `outputs/dpo` + base 0.5B，n=20 fixture）。
 
-| 指标 | Demo 数值（`--stage eval --demo`，n=20） |
-|------|------------------:|
+| 指标 | Real GPU（DPO adapter） |
+|------|------------------------:|
 | n | 20 |
-| mean_composite | 0.8822 |
-| pass_rate | 0.90 |
-| hallucination_rate | 0.05 |
+| mean_composite | **0.8661** |
+| pass_rate | **0.80** |
+| hallucination_rate | **0.00** |
 | safety_fail_rate | 0.0 |
+| device | cuda (RTX 4060 Laptop) |
+| gen wall | ~100 s（+ 加载 ~47 s） |
 
-### 7.2 Base vs SFT vs DPO 对比
+### 7.2 Base vs SFT vs DPO 对比（真生成 · 非 mock）
 
-来源：`reports/comparison.json`（mock：base 故意偏弱，sft=gold 参考回复）。
+来源：`reports/comparison.json`（`mock: false`）。
 
 | 模型 | mean_composite | pass_rate | hallucination_rate |
 |------|---------------:|----------:|-------------------:|
-| sft (gold ref) | 0.9575 | 0.80 | 0.15 |
-| dpo (mock) | 0.8700 | 0.85 | 0.05 |
-| base (weak mock) | 0.6107 | 0.00 | 0.20 |
+| **dpo** (`outputs/dpo`) | **0.8661** | **0.80** | **0.00** |
+| **sft** (`outputs/sft`) | 0.8599 | 0.75 | 0.05 |
+| **base** (`Qwen2.5-0.5B-Instruct`) | 0.7365 | 0.25 | 0.00 |
 
-**成对胜率（规则裁判，示例）：**
+**成对胜率（规则裁判）：**
 
 | 对局 | win_rate A | win_rate B | tie |
 |------|-----------:|-----------:|----:|
-| base vs sft | 0.05 | 0.95 | 0.00 |
-| base vs dpo | 0.05 | 0.95 | 0.00 |
-| sft vs dpo | 0.15 | 0.00 | 0.85 |
+| base vs sft | 0.15 | **0.70** | 0.15 |
+| base vs dpo | 0.15 | **0.70** | 0.15 |
+| sft vs dpo | 0.10 | 0.05 | **0.85** |
 
-> 全量 GPU 实验请替换为真实 checkpoint 路径：  
-> `python scripts/05_eval_compare.py --base <hf> --sft outputs/sft --dpo outputs/dpo`
+**结论：** 后训练相对 base 有清晰增益；SFT 与 DPO 规则分接近（大量平局），DPO 在 pass / 幻觉上略优。决策仍看业务指标而非 train loss。
+
+复现：
+
+```bash
+python scripts/05_eval_compare.py \
+  --base Qwen/Qwen2.5-0.5B-Instruct \
+  --sft outputs/sft --dpo outputs/dpo \
+  --base-model Qwen/Qwen2.5-0.5B-Instruct \
+  --max-samples 20 --max-new-tokens 192
+python scripts/09_plot_reports.py
+```
 
 ---
 
