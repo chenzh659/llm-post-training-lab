@@ -5,7 +5,7 @@
 PY ?= python
 ROOT := .
 
-.PHONY: help smoke demo data sft dpo eval deploy pipeline report clean-outputs
+.PHONY: help smoke demo data sft dpo eval deploy pipeline report plots clean-outputs
 
 help:
 	@echo Targets:
@@ -15,6 +15,7 @@ help:
 	@echo   make eval       - offline eval (use DEMO=1 for mock)
 	@echo   make deploy     - vLLM helper + serving bench (DEMO=1 for offline mock)
 	@echo   make pipeline   - alias for demo
+	@echo   make plots      - regenerate docs/assets/*.png from reports
 	@echo   make report     - remind FINAL_REPORT path
 	@echo   make clean-outputs - remove outputs/ mock checkpoints
 
@@ -43,6 +44,9 @@ deploy:
 
 report:
 	@echo See reports/FINAL_REPORT.md
+
+plots:
+	$(PY) scripts/09_plot_reports.py
 
 clean-outputs:
 	$(PY) -c "import shutil, pathlib; p=pathlib.Path('outputs'); shutil.rmtree(p, ignore_errors=True); print('removed outputs/')"
