@@ -1,0 +1,76 @@
+# Direct Preference Optimization (DPO) config
+seed: 42
+
+model:
+  # policy model (usually the SFT checkpoint or same base + adapter)
+  name: outputs/sft
+  # frozen reference; null => clone of policy at start (TRL default)
+  ref_model: null
+  trust_remote_code: true
+  bits: 4
+  bnb_4bit_compute_dtype: bfloat16
+  bnb_4bit_quant_type: nf4
+  bnb_4bit_use_double_quant: true
+  torch_dtype: bfloat16
+  attn_implementation: sdpa
+  use_cache: false
+
+lora:
+  r: 16
+  lora_alpha: 32
+  lora_dropout: 0.05
+  bias: none
+  task_type: CAUSAL_LM
+  target_modules:
+    - q_proj
+    - k_proj
+    - v_proj
+    - o_proj
+    - gate_proj
+    - up_proj
+    - down_proj
+
+dpo:
+  beta: 0.1
+  loss_type: sigmoid  # sigmoid | hinge | ipo | kto_pair
+  label_smoothing: 0.0
+  # max token lengths
+  max_prompt_length: 1024
+  max_length: 2048
+  max_completion_length: 1024
+
+data:
+  # Primary paths match scripts/01_build_data.py -> data/splits/
+  train_path: data/splits/train.pref.jsonl
+  eval_path: data/splits/val.pref.jsonl
+  prompt_key: prompt
+  chosen_key: chosen
+  rejected_key: rejected
+
+training:
+  output_dir: outputs/dpo
+  num_train_epochs: 1
+  per_device_train_batch_size: 1
+  per_device_eval_batch_size: 1
+  gradient_accumulation_steps: 16
+  learning_rate: 5.0e-6
+  lr_scheduler_type: cosine
+  warmup_ratio: 0.1
+  weight_decay: 0.0
+  max_grad_norm: 1.0
+  logging_steps: 10
+  eval_strategy: steps
+  eval_steps: 50
+  save_strategy: steps
+  save_steps: 100
+  save_total_limit: 2
+  bf16: true
+  fp16: false
+  gradient_checkpointing: true
+  optim: paged_adamw_8bit
+  report_to: none
+  remove_unused_columns: false
+
+logging:
+  project: llm-post-training-lab
+  run_name: dpo-qlora

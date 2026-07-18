@@ -1,0 +1,68 @@
+# Supervised Fine-Tuning (SFT / QLoRA) config
+seed: 42
+
+model:
+  name: Qwen/Qwen2.5-1.5B-Instruct
+  trust_remote_code: true
+  # 4-bit QLoRA; set to null / 16 for full bf16 LoRA
+  bits: 4
+  bnb_4bit_compute_dtype: bfloat16
+  bnb_4bit_quant_type: nf4
+  bnb_4bit_use_double_quant: true
+  torch_dtype: bfloat16
+  attn_implementation: sdpa  # or flash_attention_2 if available
+  use_cache: false
+
+lora:
+  r: 16
+  lora_alpha: 32
+  lora_dropout: 0.05
+  bias: none
+  task_type: CAUSAL_LM
+  target_modules:
+    - q_proj
+    - k_proj
+    - v_proj
+    - o_proj
+    - gate_proj
+    - up_proj
+    - down_proj
+
+data:
+  # Primary paths match scripts/01_build_data.py -> data/splits/
+  train_path: data/splits/train.sft.jsonl
+  eval_path: data/splits/val.sft.jsonl
+  max_seq_len: 2048
+  packing: true
+  dataset_text_field: text
+  # chat template: "auto" uses tokenizer.apply_chat_template
+  chat_template: auto
+
+training:
+  output_dir: outputs/sft
+  num_train_epochs: 2
+  per_device_train_batch_size: 2
+  per_device_eval_batch_size: 2
+  gradient_accumulation_steps: 8
+  learning_rate: 2.0e-4
+  lr_scheduler_type: cosine
+  warmup_ratio: 0.03
+  weight_decay: 0.01
+  max_grad_norm: 1.0
+  logging_steps: 10
+  eval_strategy: steps
+  eval_steps: 100
+  save_strategy: steps
+  save_steps: 200
+  save_total_limit: 2
+  bf16: true
+  fp16: false
+  gradient_checkpointing: true
+  optim: paged_adamw_8bit
+  report_to: none
+  dataloader_num_workers: 2
+  remove_unused_columns: false
+
+logging:
+  project: llm-post-training-lab
+  run_name: sft-qlora

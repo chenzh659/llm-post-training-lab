@@ -1,0 +1,40 @@
+{
+  "backend": "demo_mock",
+  "model": "lab-assistant",
+  "n_requests": 16,
+  "n_ok": 16,
+  "n_fail": 0,
+  "concurrency": 4,
+  "wall_seconds": 1.4422,
+  "ttft": {
+    "mean_s": 0.0828,
+    "p50_s": 0.0887,
+    "p95_s": 0.1169,
+    "p99_s": 0.1177
+  },
+  "e2e_latency": {
+    "mean_s": 0.3606,
+    "p50_s": 0.3378,
+    "p95_s": 0.4983,
+    "p99_s": 0.5076
+  },
+  "throughput": {
+    "requests_per_s": 11.0941,
+    "completion_tokens_per_s": 737.0626,
+    "total_completion_tokens": 1063
+  },
+  "errors": [],
+  "demo": true,
+  "note": "Synthetic offline bench (--demo). Replace with real vLLM / transformers numbers on Linux+CUDA or --transformers-fallback with a local model.",
+  "peak_gpu_memory_mb": null,
+  "config": {
+    "base_url": "http://127.0.0.1:8000/v1",
+    "model": "lab-assistant",
+    "concurrency": 4,
+    "num_prompts": 16,
+    "max_tokens": 128,
+    "warmup": 4,
+    "stream": true,
+    "demo": true
+  }
+}

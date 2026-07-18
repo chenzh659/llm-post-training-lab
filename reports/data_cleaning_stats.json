@@ -1,0 +1,26 @@
+{
+  "sft": {
+    "kind": "sft",
+    "input": 2000,
+    "dropped": {
+      "duplicate": 68
+    },
+    "output": 1932,
+    "duplicates_removed": 68,
+    "retention_rate": 0.966
+  },
+  "preference": {
+    "kind": "preference",
+    "input": 800,
+    "dropped": {},
+    "output": 800,
+    "duplicates_removed": 0,
+    "retention_rate": 1.0
+  },
+  "paths": {
+    "sft_input": "D:\\coding place\\a_project\\github_place\\for resume\\llm-post-training-lab\\data\\raw\\sft_raw.jsonl",
+    "sft_output": "D:\\coding place\\a_project\\github_place\\for resume\\llm-post-training-lab\\data\\processed\\sft_clean.jsonl",
+    "pref_input": "D:\\coding place\\a_project\\github_place\\for resume\\llm-post-training-lab\\data\\raw\\preference_raw.jsonl",
+    "pref_output": "D:\\coding place\\a_project\\github_place\\for resume\\llm-post-training-lab\\data\\processed\\preference_clean.jsonl"
+  }
+}

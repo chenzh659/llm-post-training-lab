@@ -1,0 +1,85 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+.env
+.env.*
+!.env.example
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# Test / type / lint caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE / OS
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Project outputs & artifacts
+outputs/
+models/
+checkpoints/
+wandb/
+runs/
+mlruns/
+lightning_logs/
+
+# Weights / tensors / adapters (large)
+*.pt
+*.pth
+*.bin
+*.onnx
+*.safetensors
+*.gguf
+*.ckpt
+
+# Logs
+*.log
+logs/
+
+# Local reports that may be regenerated (keep templates)
+# reports/*.json is usually committed as demo artifacts; ignore huge dumps if any
+reports/figures/*.png
+reports/tmp/
+
+# HuggingFace / torch cache (if created under repo)
+.cache/
+huggingface/
+transformers_cache/
+
+# Local secrets / keys
+*.pem
+*.key
+secrets/
+
+# Editor / tooling leftovers
+*.orig
+*.bak
+_check_utf8.txt

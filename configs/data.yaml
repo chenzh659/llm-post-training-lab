@@ -1,0 +1,73 @@
+# Data preparation config for llm-post-training-lab
+seed: 42
+
+paths:
+  raw_dir: data/raw
+  interim_dir: data/interim
+  processed_dir: data/processed
+  splits_dir: data/splits
+  sft_raw: data/raw/sft_raw.jsonl
+  preference_raw: data/raw/preference_raw.jsonl
+  sft_clean: data/processed/sft_clean.jsonl
+  preference_clean: data/processed/preference_clean.jsonl
+  # Aliases used by training configs (match split outputs)
+  sft_train: data/splits/train.sft.jsonl
+  sft_eval: data/splits/val.sft.jsonl
+  dpo_train: data/splits/train.pref.jsonl
+  dpo_eval: data/splits/val.pref.jsonl
+  safety_eval: data/processed/safety_eval.jsonl
+
+# Target dataset sizes (examples after filtering)
+sizes:
+  sft_raw: 2000
+  preference_raw: 800
+  sft_train: 1600
+  sft_eval: 200
+  dpo_train: 640
+  dpo_eval: 80
+  safety_eval: 200
+
+# Synthetic generation (demo-friendly defaults)
+generation:
+  sft_samples: 2000
+  preference_pairs: 800
+  min_per_category: 50
+
+max_lengths:
+  prompt: 1024
+  response: 1024
+  total: 2048
+
+# 8:1:1 train/val/test (see src/data/split.py)
+split:
+  train_ratio: 0.8
+  val_ratio: 0.1
+  test_ratio: 0.1
+  holdout_ratio: 0.0
+
+cleaning:
+  min_chars: 8
+  max_chars: 12000
+  min_prompt_chars: 4
+  min_response_chars: 8
+  drop_empty: true
+  drop_duplicates: true
+  # strip control chars / normalize whitespace
+  normalize_whitespace: true
+  # language filter: "zh" | "en" | "any"
+  language: any
+  # reject rows whose toxic keyword hit rate exceeds this fraction of tokens
+  max_toxic_ratio: 0.05
+  # reject if non-printable / garbage ratio exceeds threshold
+  max_garbage_ratio: 0.15
+  # min average character diversity (unique_chars / len)
+  min_char_diversity: 0.05
+
+format:
+  instruction_key: instruction
+  input_key: input
+  output_key: output
+  # DPO columns
+  prompt_key: prompt
+  chosen_key: chosen
+  rejected_key: rejected

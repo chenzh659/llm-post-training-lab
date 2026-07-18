@@ -1,0 +1,21 @@
+{
+  "stage": "dpo",
+  "demo": true,
+  "mock": true,
+  "model_name": "Qwen/Qwen2.5-0.5B-Instruct",
+  "device": "cpu",
+  "output_dir": "D:\\coding place\\a_project\\github_place\\for resume\\llm-post-training-lab\\outputs\\dpo",
+  "num_train_samples": 32,
+  "train_wall_time_sec": 0.01,
+  "peak_gpu_memory_mb": null,
+  "seed": 42,
+  "train_loss": 0.456,
+  "metrics": {
+    "train_loss": 0.456,
+    "train_runtime": 0.01,
+    "epoch": 1.0
+  },
+  "note": "Mock metrics — heavy training skipped (no CUDA / offline demo path).",
+  "beta": 0.1,
+  "base_model": "Qwen/Qwen2.5-0.5B-Instruct"
+}

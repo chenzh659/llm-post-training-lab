@@ -1,0 +1,42 @@
+# Serving & latency benchmark config (vLLM-oriented)
+seed: 42
+
+server:
+  # local checkpoint or HF model id
+  model: outputs/dpo
+  # if model is a LoRA adapter dir, set base for merge/serve
+  base_model: Qwen/Qwen2.5-1.5B-Instruct
+  host: 0.0.0.0
+  port: 8000
+  api_key: null  # optional bearer for local gateway
+  trust_remote_code: true
+  dtype: auto  # auto | half | bfloat16 | float16
+  max_model_len: 4096
+  gpu_memory_utilization: 0.85
+  tensor_parallel_size: 1
+  enforce_eager: false
+  enable_prefix_caching: true
+  # OpenAI-compatible served name
+  served_model_name: lab-assistant
+
+generation_defaults:
+  temperature: 0.7
+  top_p: 0.9
+  max_tokens: 512
+  stop: []
+
+bench:
+  # concurrent clients for throughput / latency bench
+  concurrency: 8
+  num_prompts: 64
+  prompt_tokens: 128
+  max_tokens: 128
+  temperature: 0.0
+  output_dir: outputs/bench
+  report_json: outputs/bench/latency.json
+  # warmup requests before timing
+  warmup: 4
+
+health:
+  path: /health
+  timeout_s: 30

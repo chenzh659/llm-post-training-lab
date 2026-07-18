@@ -1,0 +1,24 @@
+{
+  "sft": {
+    "input": 1932,
+    "train": 1543,
+    "val": 188,
+    "test": 201,
+    "paths": {
+      "train": "D:\\coding place\\a_project\\github_place\\for resume\\llm-post-training-lab\\data\\splits\\train.sft.jsonl",
+      "val": "D:\\coding place\\a_project\\github_place\\for resume\\llm-post-training-lab\\data\\splits\\val.sft.jsonl",
+      "test": "D:\\coding place\\a_project\\github_place\\for resume\\llm-post-training-lab\\data\\splits\\test.sft.jsonl"
+    }
+  },
+  "pref": {
+    "input": 800,
+    "train": 638,
+    "val": 78,
+    "test": 84,
+    "paths": {
+      "train": "D:\\coding place\\a_project\\github_place\\for resume\\llm-post-training-lab\\data\\splits\\train.pref.jsonl",
+      "val": "D:\\coding place\\a_project\\github_place\\for resume\\llm-post-training-lab\\data\\splits\\val.pref.jsonl",
+      "test": "D:\\coding place\\a_project\\github_place\\for resume\\llm-post-training-lab\\data\\splits\\test.pref.jsonl"
+    }
+  }
+}

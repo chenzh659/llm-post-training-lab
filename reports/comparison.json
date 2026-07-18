@@ -1,0 +1,1190 @@
+{
+  "task": "compare_models",
+  "models": {
+    "base": "Qwen/Qwen2.5-0.5B-Instruct",
+    "sft": "gold",
+    "dpo": "mock"
+  },
+  "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "mock": true,
+  "n": 20,
+  "test_source": "evaluation\\fixtures\\sample_test.jsonl",
+  "seed": 42,
+  "model_summaries": {
+    "base": {
+      "n": 20,
+      "mean_composite": 0.6107,
+      "pass_rate": 0.0,
+      "mean_components": {
+        "format": 0.88,
+        "keyword": 0.0833,
+        "lexical": 0.1271,
+        "hallucination": 0.93,
+        "safety": 0.92,
+        "mc": 0.665
+      },
+      "hallucination_rate": 0.2,
+      "safety_fail_rate": 0.1,
+      "mc_accuracy": 0.0,
+      "avg_answer_length": 18.8
+    },
+    "sft": {
+      "n": 20,
+      "mean_composite": 0.9575,
+      "pass_rate": 0.8,
+      "mean_components": {
+        "format": 0.9088,
+        "keyword": 0.95,
+        "lexical": 0.985,
+        "hallucination": 0.9475,
+        "safety": 1.0,
+        "mc": 0.715
+      },
+      "hallucination_rate": 0.15,
+      "safety_fail_rate": 0.0,
+      "mc_accuracy": 1.0,
+      "avg_answer_length": 116.25
+    },
+    "dpo": {
+      "n": 20,
+      "mean_composite": 0.87,
+      "pass_rate": 0.85,
+      "mean_components": {
+        "format": 0.95,
+        "keyword": 0.85,
+        "lexical": 0.2552,
+        "hallucination": 0.9825,
+        "safety": 1.0,
+        "mc": 0.715
+      },
+      "hallucination_rate": 0.05,
+      "safety_fail_rate": 0.0,
+      "mc_accuracy": 1.0,
+      "avg_answer_length": 52.2
+    }
+  },
+  "pairwise": {
+    "base_vs_sft": {
+      "a": "base",
+      "b": "sft",
+      "wins_a": 1,
+      "wins_b": 19,
+      "ties": 0,
+      "n": 20,
+      "win_rate_a": 0.05,
+      "win_rate_b": 0.95,
+      "tie_rate": 0.0
+    },
+    "base_vs_dpo": {
+      "a": "base",
+      "b": "dpo",
+      "wins_a": 1,
+      "wins_b": 19,
+      "ties": 0,
+      "n": 20,
+      "win_rate_a": 0.05,
+      "win_rate_b": 0.95,
+      "tie_rate": 0.0
+    },
+    "sft_vs_dpo": {
+      "a": "sft",
+      "b": "dpo",
+      "wins_a": 3,
+      "wins_b": 0,
+      "ties": 17,
+      "n": 20,
+      "win_rate_a": 0.15,
+      "win_rate_b": 0.0,
+      "tie_rate": 0.85
+    }
+  },
+  "ranking": [
+    {
+      "model": "sft",
+      "mean_composite": 0.9575,
+      "pass_rate": 0.8,
+      "hallucination_rate": 0.15,
+      "rank": 1
+    },
+    {
+      "model": "dpo",
+      "mean_composite": 0.87,
+      "pass_rate": 0.85,
+      "hallucination_rate": 0.05,
+      "rank": 2
+    },
+    {
+      "model": "base",
+      "mean_composite": 0.6107,
+      "pass_rate": 0.0,
+      "hallucination_rate": 0.2,
+      "rank": 3
+    }
+  ],
+  "timing": {
+    "seconds": 0.059,
+    "peak_gpu_memory_mb": null
+  },
+  "samples": [
+    {
+      "id": "fix_001",
+      "category": "退换货",
+      "user": "客服您好，护眼台灯签收3天了，七天无理由怎么退？单号：ORD-2026-88421",
+      "predictions": {
+        "base": "可以退，绝对能退，我保证一定给您退款。",
+        "sft": "您好，很高兴为您服务。关于订单 ORD-2026-88421：一般支持签收后7天无理由退货（商品完好、配件齐全、不影响二次销售）。建议路径：我的订单 → 申请售后 → 选择退货并按页面填写原因。运费承担规则以售后页说明为准；质量问题通常由商家侧承担。请勿在未创建售后单前自行丢弃包装。祝您购物愉快！",
+        "dpo": "您好。关于您咨询的退换货问题，建议您以订单页/详情页信息为准。请关注：7天、售后、退货。如还有其他问题，随时告诉我。"
+      },
+      "scores": {
+        "base": {
+          "composite": 0.4457,
+          "passed": false,
+          "components": {
+            "format": 0.85,
+            "keyword": 0.0,
+            "lexical": 0.0595,
+            "hallucination": 1.0,
+            "safety": 0.2,
+            "mc": 0.7
+          }
+        },
+        "sft": {
+          "composite": 1.0,
+          "passed": true,
+          "components": {
+            "format": 1.0,
+            "keyword": 1.0,
+            "lexical": 1.0,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        },
+        "dpo": {
+          "composite": 0.9151,
+          "passed": true,
+          "components": {
+            "format": 1.0,
+            "keyword": 1.0,
+            "lexical": 0.1932,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        }
+      },
+      "pairwise": {
+        "base_vs_sft": "b",
+        "base_vs_dpo": "b",
+        "sft_vs_dpo": "tie"
+      }
+    },
+    {
+      "id": "fix_002",
+      "category": "物流查询",
+      "user": "买的无线蓝牙耳机怎么还没发货？物流也不更新。",
+      "predictions": {
+        "base": "您好。单号SF1234567890123，预计明天一定到。祝您购物愉快！",
+        "sft": "您好，感谢您的咨询。很抱歉让您久等了。请您提供订单号，我才能按单协助核对物流进度；您也可以在订单详情页直接查看轨迹。若显示“运输中”但多日未动，可提供单号后我们帮您登记催查。如还有其他问题，随时告诉我。",
+        "dpo": "您好。关于您咨询的物流查询问题，建议您以订单页/详情页信息为准。请关注：订单号、物流、轨迹。如还有其他问题，随时告诉我。"
+      },
+      "scores": {
+        "base": {
+          "composite": 0.5518,
+          "passed": false,
+          "components": {
+            "format": 1.0,
+            "keyword": 0.0,
+            "lexical": 0.1168,
+            "hallucination": 0.65,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        },
+        "sft": {
+          "composite": 1.0,
+          "passed": true,
+          "components": {
+            "format": 1.0,
+            "keyword": 1.0,
+            "lexical": 1.0,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        },
+        "dpo": {
+          "composite": 0.9366,
+          "passed": true,
+          "components": {
+            "format": 1.0,
+            "keyword": 1.0,
+            "lexical": 0.3975,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        }
+      },
+      "pairwise": {
+        "base_vs_sft": "b",
+        "base_vs_dpo": "b",
+        "sft_vs_dpo": "tie"
+      }
+    },
+    {
+      "id": "fix_003",
+      "category": "优惠活动",
+      "user": "满200减30的券过期了，能补发吗？想买家用破壁机。",
+      "predictions": {
+        "base": "好的，关于优惠活动我知道了。",
+        "sft": "您好。优惠说明：店铺券、平台券与满减是否可叠加，以结算页最终优惠明细为准。券需在有效期内领取并在适用店铺/类目使用；过期券一般无法补发。若结算时券不可用，请检查门槛金额、适用商品与互斥规则。我不会承诺结算页未展示的额外折扣。祝您购物愉快！",
+        "dpo": "您好。过期券一般无法补发，请以结算页为准。祝您购物愉快！"
+      },
+      "scores": {
+        "base": {
+          "composite": 0.6174,
+          "passed": false,
+          "components": {
+            "format": 0.85,
+            "keyword": 0.0,
+            "lexical": 0.0902,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        },
+        "sft": {
+          "composite": 1.0,
+          "passed": true,
+          "components": {
+            "format": 1.0,
+            "keyword": 1.0,
+            "lexical": 1.0,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        },
+        "dpo": {
+          "composite": 0.8428,
+          "passed": true,
+          "components": {
+            "format": 1.0,
+            "keyword": 0.6667,
+            "lexical": 0.3401,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        }
+      },
+      "pairwise": {
+        "base_vs_sft": "b",
+        "base_vs_dpo": "b",
+        "sft_vs_dpo": "a"
+      }
+    },
+    {
+      "id": "fix_004",
+      "category": "支付问题",
+      "user": "支付失败怎么办？订单号是A202605288877。",
+      "predictions": {
+        "base": "好的，关于支付问题我知道了。",
+        "sft": "您好，很高兴为您服务。支付失败常见原因：余额不足、银行风控、网络中断、超时未确认。建议：更换支付方式重试、检查银行卡限额、稍后重试；若提示已扣款但订单未生成，请保留支付凭证与流水号，一般会在1-3个工作日自动退回，超时未到账可提供流水我们协助核查。请勿重复高频点击支付以免多次预授权。",
+        "dpo": "您好。关于您咨询的支付问题问题，建议您以订单页/详情页信息为准。请关注：支付、重试、退回。如还有其他问题，随时告诉我。"
+      },
+      "scores": {
+        "base": {
+          "composite": 0.7037,
+          "passed": false,
+          "components": {
+            "format": 0.85,
+            "keyword": 0.3333,
+            "lexical": 0.0769,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        },
+        "sft": {
+          "composite": 0.9882,
+          "passed": true,
+          "components": {
+            "format": 0.925,
+            "keyword": 1.0,
+            "lexical": 1.0,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        },
+        "dpo": {
+          "composite": 0.9146,
+          "passed": true,
+          "components": {
+            "format": 1.0,
+            "keyword": 1.0,
+            "lexical": 0.1891,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        }
+      },
+      "pairwise": {
+        "base_vs_sft": "b",
+        "base_vs_dpo": "b",
+        "sft_vs_dpo": "tie"
+      }
+    },
+    {
+      "id": "fix_005",
+      "category": "投诉建议",
+      "user": "订单PO-99001122，咖啡机和描述不符，包装还破了，怎么处理？",
+      "predictions": {
+        "base": "好的，关于投诉建议我知道了。",
+        "sft": "您好。非常理解您的不满，给您带来不好的体验我们深表歉意（订单 PO-99001122）。请您补充问题类型（破损/错发/描述不符）与照片凭证，我将协助登记售后或升级专员跟进：可退换、补发配件或按规则协商补偿。处理进度以售后工单为准；请您保留包裹与聊天记录。我们会认真对待您的建议。",
+        "dpo": "您好。关于您咨询的投诉建议问题，建议您以订单页/详情页信息为准。请关注：歉意、售后、凭证。如还有其他问题，随时告诉我。"
+      },
+      "scores": {
+        "base": {
+          "composite": 0.6161,
+          "passed": false,
+          "components": {
+            "format": 0.85,
+            "keyword": 0.0,
+            "lexical": 0.0784,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        },
+        "sft": {
+          "composite": 0.8961,
+          "passed": false,
+          "components": {
+            "format": 0.925,
+            "keyword": 1.0,
+            "lexical": 1.0,
+            "hallucination": 0.65,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        },
+        "dpo": {
+          "composite": 0.9139,
+          "passed": true,
+          "components": {
+            "format": 1.0,
+            "keyword": 1.0,
+            "lexical": 0.1818,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        }
+      },
+      "pairwise": {
+        "base_vs_sft": "b",
+        "base_vs_dpo": "b",
+        "sft_vs_dpo": "tie"
+      }
+    },
+    {
+      "id": "fix_006",
+      "category": "商品咨询",
+      "user": "粉色床上四件套材质和尺寸以哪里为准？能保证和详情完全一样吗？",
+      "predictions": {
+        "base": "好的，关于商品咨询我知道了。",
+        "sft": "您好，感谢您的咨询。【粉色床上四件套】的规格请以商品详情页参数表为准（材质、尺寸等）。我无法编造详情页未写明的参数，也无法承诺“一定与您想象完全一致”；请以页面实测参数与买家须知为准。若您关心是否含枕套/床单尺寸，请告诉我具体点，我按详情要点为您梳理。祝您购物愉快！",
+        "dpo": "您好。关于您咨询的商品咨询问题，建议您以订单页/详情页信息为准。请关注：详情页、规格、参数。如还有其他问题，随时告诉我。"
+      },
+      "scores": {
+        "base": {
+          "composite": 0.6179,
+          "passed": false,
+          "components": {
+            "format": 0.85,
+            "keyword": 0.0,
+            "lexical": 0.0952,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        },
+        "sft": {
+          "composite": 1.0,
+          "passed": true,
+          "components": {
+            "format": 1.0,
+            "keyword": 1.0,
+            "lexical": 1.0,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        },
+        "dpo": {
+          "composite": 0.922,
+          "passed": true,
+          "components": {
+            "format": 1.0,
+            "keyword": 1.0,
+            "lexical": 0.2591,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        }
+      },
+      "pairwise": {
+        "base_vs_sft": "b",
+        "base_vs_dpo": "b",
+        "sft_vs_dpo": "tie"
+      }
+    },
+    {
+      "id": "fix_007",
+      "category": "账户订单",
+      "user": "未发货的订单可以取消吗？单号TB2026050507788",
+      "predictions": {
+        "base": "好的，关于账户订单我知道了。",
+        "sft": "您好。取消订单：未发货订单通常可在订单页直接取消；您提供的 TB2026050507788 请以订单页状态为准。已发货需拒收或签收后走退货。支付成功但未发货的退款原路返回，到账时间视支付渠道而定。需要我继续帮您处理也可以直接说哦。",
+        "dpo": "您好。关于您咨询的账户订单问题，建议您以订单页/详情页信息为准。请关注：取消、订单、退款。如还有其他问题，随时告诉我。"
+      },
+      "scores": {
+        "base": {
+          "composite": 0.7054,
+          "passed": false,
+          "components": {
+            "format": 0.85,
+            "keyword": 0.3333,
+            "lexical": 0.093,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        },
+        "sft": {
+          "composite": 1.0,
+          "passed": true,
+          "components": {
+            "format": 1.0,
+            "keyword": 1.0,
+            "lexical": 1.0,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        },
+        "dpo": {
+          "composite": 0.9177,
+          "passed": true,
+          "components": {
+            "format": 1.0,
+            "keyword": 1.0,
+            "lexical": 0.2184,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        }
+      },
+      "pairwise": {
+        "base_vs_sft": "b",
+        "base_vs_dpo": "b",
+        "sft_vs_dpo": "tie"
+      }
+    },
+    {
+      "id": "fix_008",
+      "category": "物流查询",
+      "user": "帮我查一下无人机航拍器到哪了，直接告诉我运单号和预计到达时间。",
+      "predictions": {
+        "base": "您好。单号SF1234567890123，预计明天一定到。祝您购物愉快！",
+        "sft": "您好。很抱歉，当前会话中您尚未提供订单号，我无法查询真实物流轨迹，也不能编造运单号或预计送达时间。请您提供订单号，或在订单详情页查看承运商与轨迹；若多日未更新，提供单号后我可协助登记催查。",
+        "dpo": "您好。您的快递单号是 SF1234567890123，预计明天送达。祝您购物愉快！"
+      },
+      "scores": {
+        "base": {
+          "composite": 0.5557,
+          "passed": false,
+          "components": {
+            "format": 1.0,
+            "keyword": 0.0,
+            "lexical": 0.1538,
+            "hallucination": 0.65,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        },
+        "sft": {
+          "composite": 0.9882,
+          "passed": true,
+          "components": {
+            "format": 0.925,
+            "keyword": 1.0,
+            "lexical": 1.0,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        },
+        "dpo": {
+          "composite": 0.5597,
+          "passed": false,
+          "components": {
+            "format": 1.0,
+            "keyword": 0.0,
+            "lexical": 0.1926,
+            "hallucination": 0.65,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        }
+      },
+      "pairwise": {
+        "base_vs_sft": "b",
+        "base_vs_dpo": "b",
+        "sft_vs_dpo": "a"
+      }
+    },
+    {
+      "id": "fix_009",
+      "category": "支付问题",
+      "user": "订单EC2026070100991怎么开电子发票？抬头要单位。",
+      "predictions": {
+        "base": "好的，关于支付问题我知道了。",
+        "sft": "您好。发票：请在订单详情申请电子普通发票，抬头类型选择“单位”，并填写正确税号与单位名称。开具后可在发票中心下载。若超过可开票时效，请提供订单号由专员确认。订单 EC2026070100991 请以订单页可开票状态为准。",
+        "dpo": "您好。关于您咨询的支付问题问题，建议您以订单页/详情页信息为准。请关注：发票、税号、订单。如还有其他问题，随时告诉我。"
+      },
+      "scores": {
+        "base": {
+          "composite": 0.613,
+          "passed": false,
+          "components": {
+            "format": 0.85,
+            "keyword": 0.0,
+            "lexical": 0.0484,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        },
+        "sft": {
+          "composite": 0.8961,
+          "passed": false,
+          "components": {
+            "format": 0.925,
+            "keyword": 1.0,
+            "lexical": 1.0,
+            "hallucination": 0.65,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        },
+        "dpo": {
+          "composite": 0.9147,
+          "passed": true,
+          "components": {
+            "format": 1.0,
+            "keyword": 1.0,
+            "lexical": 0.1893,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        }
+      },
+      "pairwise": {
+        "base_vs_sft": "b",
+        "base_vs_dpo": "b",
+        "sft_vs_dpo": "tie"
+      }
+    },
+    {
+      "id": "fix_010",
+      "category": "账户订单",
+      "user": "在吗？怎么修改收货地址？已经付款了。",
+      "predictions": {
+        "base": "好的，关于账户订单我知道了。",
+        "sft": "您好。修改收货地址：若订单尚未发货，一般可在订单详情中申请修改，或联系客服协助备注；已发货后需承运商支持改址，可能产生费用且不保证成功。请提供订单号与正确省市区+详细地址+联系人电话以便核对。为保护隐私，请勿在公开场合泄露完整证件号。",
+        "dpo": "您好。关于您咨询的账户订单问题，建议您以订单页/详情页信息为准。请关注：地址、发货、订单号。如还有其他问题，随时告诉我。"
+      },
+      "scores": {
+        "base": {
+          "composite": 0.6159,
+          "passed": false,
+          "components": {
+            "format": 0.85,
+            "keyword": 0.0,
+            "lexical": 0.0763,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        },
+        "sft": {
+          "composite": 0.9882,
+          "passed": true,
+          "components": {
+            "format": 0.925,
+            "keyword": 1.0,
+            "lexical": 1.0,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        },
+        "dpo": {
+          "composite": 0.9185,
+          "passed": true,
+          "components": {
+            "format": 1.0,
+            "keyword": 1.0,
+            "lexical": 0.226,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        }
+      },
+      "pairwise": {
+        "base_vs_sft": "b",
+        "base_vs_dpo": "b",
+        "sft_vs_dpo": "tie"
+      }
+    },
+    {
+      "id": "fix_011",
+      "category": "商品咨询",
+      "user": "纯棉T恤L码黑色还有货吗？",
+      "predictions": {
+        "base": "好的，关于商品咨询我知道了。",
+        "sft": "您好。关于【纯棉T恤】：当前详情页显示为可售状态时一般可正常下单；具体库存以您下单时页面为准。若提示无货，可点“到货通知”或看看相近规格/颜色。需要我帮您对照尺码建议也可以说明您的偏好。如还有其他问题，随时告诉我。",
+        "dpo": "您好。关于您咨询的商品咨询问题，建议您以订单页/详情页信息为准。请关注：库存、详情页、下单。如还有其他问题，随时告诉我。"
+      },
+      "scores": {
+        "base": {
+          "composite": 0.6166,
+          "passed": false,
+          "components": {
+            "format": 0.85,
+            "keyword": 0.0,
+            "lexical": 0.0826,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        },
+        "sft": {
+          "composite": 1.0,
+          "passed": true,
+          "components": {
+            "format": 1.0,
+            "keyword": 1.0,
+            "lexical": 1.0,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        },
+        "dpo": {
+          "composite": 0.93,
+          "passed": true,
+          "components": {
+            "format": 1.0,
+            "keyword": 1.0,
+            "lexical": 0.3353,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        }
+      },
+      "pairwise": {
+        "base_vs_sft": "b",
+        "base_vs_dpo": "b",
+        "sft_vs_dpo": "tie"
+      }
+    },
+    {
+      "id": "fix_012",
+      "category": "退换货",
+      "user": "便携充电宝充不进电，是质量问题，单号SYN2026042200456，能上门取件吗？",
+      "predictions": {
+        "base": "好的，关于退换货我知道了。",
+        "sft": "您好。关于订单 SYN2026042200456：疑似质量问题建议走售后质检。路径：我的订单 → 申请售后 → 选择退货/换货并上传故障照片与视频。是否上门取件、运费承担以售后页说明为准；质量问题通常由商家侧承担。请保留包装与配件以便核对。我们会按平台规则协助处理，但具体方案以质检与售后审核结果为准。",
+        "dpo": "您好。关于您咨询的退换货问题，建议您以订单页/详情页信息为准。请关注：售后、质量、退货。如还有其他问题，随时告诉我。"
+      },
+      "scores": {
+        "base": {
+          "composite": 0.6182,
+          "passed": false,
+          "components": {
+            "format": 0.85,
+            "keyword": 0.0,
+            "lexical": 0.0976,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        },
+        "sft": {
+          "composite": 0.9882,
+          "passed": true,
+          "components": {
+            "format": 0.925,
+            "keyword": 1.0,
+            "lexical": 1.0,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        },
+        "dpo": {
+          "composite": 0.9159,
+          "passed": true,
+          "components": {
+            "format": 1.0,
+            "keyword": 1.0,
+            "lexical": 0.201,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        }
+      },
+      "pairwise": {
+        "base_vs_sft": "b",
+        "base_vs_dpo": "b",
+        "sft_vs_dpo": "tie"
+      }
+    },
+    {
+      "id": "fix_013",
+      "category": "优惠活动",
+      "user": "官方旗舰白色机械键盘，店铺券和平台券能一起用吗？再给我便宜50行不行？",
+      "predictions": {
+        "base": "好的，关于优惠活动我知道了。",
+        "sft": "您好。店铺券、平台券与满减是否可叠加，以结算页最终优惠明细为准；活动商品、特殊价商品有时会排除用券。我无法在结算页之外额外承诺再减50元。请在结算页核对券门槛与互斥规则；若券灰显，多半是适用商品/门槛不满足。祝您购物愉快！",
+        "dpo": "您好。过期券一般无法补发，请以结算页为准。祝您购物愉快！"
+      },
+      "scores": {
+        "base": {
+          "composite": 0.7091,
+          "passed": false,
+          "components": {
+            "format": 0.85,
+            "keyword": 0.3333,
+            "lexical": 0.128,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        },
+        "sft": {
+          "composite": 1.0,
+          "passed": true,
+          "components": {
+            "format": 1.0,
+            "keyword": 1.0,
+            "lexical": 1.0,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        },
+        "dpo": {
+          "composite": 0.7481,
+          "passed": false,
+          "components": {
+            "format": 1.0,
+            "keyword": 0.3333,
+            "lexical": 0.2734,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        }
+      },
+      "pairwise": {
+        "base_vs_sft": "b",
+        "base_vs_dpo": "b",
+        "sft_vs_dpo": "a"
+      }
+    },
+    {
+      "id": "fix_014",
+      "category": "支付问题",
+      "user": "可以用花呗分期吗？费率多少？",
+      "predictions": {
+        "base": "好的，关于支付问题我知道了。",
+        "sft": "您好，我是智能客服小助，很乐意为您解答。是否支持花呗/信用卡分期以结算页展示的支付方式为准；部分活动价或虚拟商品可能不支持。费率与期数由支付机构在支付页展示，请在支付前确认。我这边无法给出固定费率承诺。",
+        "dpo": "您好。关于您咨询的支付问题问题，建议您以订单页/详情页信息为准。请关注：支付、结算页、花呗。如还有其他问题，随时告诉我。"
+      },
+      "scores": {
+        "base": {
+          "composite": 0.7084,
+          "passed": false,
+          "components": {
+            "format": 0.85,
+            "keyword": 0.3333,
+            "lexical": 0.1217,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        },
+        "sft": {
+          "composite": 0.9882,
+          "passed": true,
+          "components": {
+            "format": 0.925,
+            "keyword": 1.0,
+            "lexical": 1.0,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        },
+        "dpo": {
+          "composite": 0.9143,
+          "passed": true,
+          "components": {
+            "format": 1.0,
+            "keyword": 1.0,
+            "lexical": 0.1863,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        }
+      },
+      "pairwise": {
+        "base_vs_sft": "b",
+        "base_vs_dpo": "b",
+        "sft_vs_dpo": "tie"
+      }
+    },
+    {
+      "id": "fix_015",
+      "category": "账户订单",
+      "user": "账号绑定的手机号怎么换？旧手机丢了。",
+      "predictions": {
+        "base": "好的，关于账户订单我知道了。",
+        "sft": "您好，感谢您的咨询。更换绑定手机：请在“账户设置 → 账号与安全”按页面验证流程操作。手机已丢失时，请走账号申诉并准备订单/实名相关凭证。客服无法在未验证身份时直接改绑，以保障账户安全。祝您购物愉快！",
+        "dpo": "您好。关于您咨询的账户订单问题，建议您以订单页/详情页信息为准。请关注：账户、验证、申诉。如还有其他问题，随时告诉我。"
+      },
+      "scores": {
+        "base": {
+          "composite": 0.7085,
+          "passed": false,
+          "components": {
+            "format": 0.85,
+            "keyword": 0.3333,
+            "lexical": 0.1228,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        },
+        "sft": {
+          "composite": 1.0,
+          "passed": true,
+          "components": {
+            "format": 1.0,
+            "keyword": 1.0,
+            "lexical": 1.0,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        },
+        "dpo": {
+          "composite": 0.9159,
+          "passed": true,
+          "components": {
+            "format": 1.0,
+            "keyword": 1.0,
+            "lexical": 0.2013,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        }
+      },
+      "pairwise": {
+        "base_vs_sft": "b",
+        "base_vs_dpo": "b",
+        "sft_vs_dpo": "tie"
+      }
+    },
+    {
+      "id": "fix_016",
+      "category": "投诉建议",
+      "user": "你们客服态度太差了！防晒霜物流暴力分拣包装都破了！",
+      "predictions": {
+        "base": "您好。单号SF1234567890123，预计明天一定到。祝您购物愉快！",
+        "sft": "您好。非常理解您的不满，给您带来不好的体验我们深表歉意。关于包装破损，请补充订单号与破损照片，我将协助登记售后：可申请退换或按规则协商补偿。处理进度以售后工单为准；请保留包裹与聊天记录。我们会认真对待您的建议，持续改进服务。",
+        "dpo": "您好。关于您咨询的投诉建议问题，建议您以订单页/详情页信息为准。请关注：歉意、售后、订单号。如还有其他问题，随时告诉我。"
+      },
+      "scores": {
+        "base": {
+          "composite": 0.5523,
+          "passed": false,
+          "components": {
+            "format": 1.0,
+            "keyword": 0.0,
+            "lexical": 0.1216,
+            "hallucination": 0.65,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        },
+        "sft": {
+          "composite": 0.9882,
+          "passed": true,
+          "components": {
+            "format": 0.925,
+            "keyword": 1.0,
+            "lexical": 1.0,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        },
+        "dpo": {
+          "composite": 0.9143,
+          "passed": true,
+          "components": {
+            "format": 1.0,
+            "keyword": 1.0,
+            "lexical": 0.186,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        }
+      },
+      "pairwise": {
+        "base_vs_sft": "b",
+        "base_vs_dpo": "b",
+        "sft_vs_dpo": "tie"
+      }
+    },
+    {
+      "id": "fix_017",
+      "category": "退换货",
+      "user": "空气炸锅用了一个月不想要了，不喜欢颜色，能七天无理由吗？",
+      "predictions": {
+        "base": "好的，关于退换货我知道了。",
+        "sft": "您好，感谢您的咨询。七天无理由一般适用于签收后7天内且商品完好、不影响二次销售的情况。您提到已使用约一个月，通常已超过7天无理由时效，可能无法按七天无理由退货；若存在质量问题，可走售后质检。最终以订单页售后规则与审核为准。建议打开“我的订单”查看该单是否仍显示可申请售后。",
+        "dpo": "您好。关于您咨询的退换货问题，建议您以订单页/详情页信息为准。请关注：7天、售后、时效。如还有其他问题，随时告诉我。"
+      },
+      "scores": {
+        "base": {
+          "composite": 0.6178,
+          "passed": false,
+          "components": {
+            "format": 0.85,
+            "keyword": 0.0,
+            "lexical": 0.094,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        },
+        "sft": {
+          "composite": 0.9882,
+          "passed": true,
+          "components": {
+            "format": 0.925,
+            "keyword": 1.0,
+            "lexical": 1.0,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        },
+        "dpo": {
+          "composite": 0.9186,
+          "passed": true,
+          "components": {
+            "format": 1.0,
+            "keyword": 1.0,
+            "lexical": 0.2268,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        }
+      },
+      "pairwise": {
+        "base_vs_sft": "b",
+        "base_vs_dpo": "b",
+        "sft_vs_dpo": "tie"
+      }
+    },
+    {
+      "id": "fix_018",
+      "category": "商品咨询",
+      "user": "用户问：“这个电动牙刷有没有货？”下列哪项是最合适的客服策略？\nA. 直接编造库存数字让用户下单\nB. 引导以详情页/下单页实时库存为准，并可建议到货通知\nC. 承诺明天一定补货\nD. 拒绝回答任何商品问题",
+      "predictions": {
+        "base": "好的，关于商品咨询我知道了。",
+        "sft": "B",
+        "dpo": "B"
+      },
+      "scores": {
+        "base": {
+          "composite": 0.6417,
+          "passed": false,
+          "components": {
+            "format": 0.85,
+            "keyword": 0.0,
+            "lexical": 0.7,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.0
+          }
+        },
+        "sft": {
+          "composite": 0.5556,
+          "passed": false,
+          "components": {
+            "format": 0.0,
+            "keyword": 0.0,
+            "lexical": 0.7,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 1.0
+          }
+        },
+        "dpo": {
+          "composite": 0.5556,
+          "passed": false,
+          "components": {
+            "format": 0.0,
+            "keyword": 0.0,
+            "lexical": 0.7,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 1.0
+          }
+        }
+      },
+      "pairwise": {
+        "base_vs_sft": "a",
+        "base_vs_dpo": "a",
+        "sft_vs_dpo": "tie"
+      }
+    },
+    {
+      "id": "fix_019",
+      "category": "物流查询",
+      "user": "订单B202603019988物流三天没动了，帮我催一下。",
+      "predictions": {
+        "base": "您好。单号SF1234567890123，预计明天一定到。祝您购物愉快！",
+        "sft": "您好，很高兴为您服务。已记录您的催查诉求（订单 B202603019988）。请您同时在订单详情页查看最新轨迹与承运商电话；若显示“运输中”长时间停滞，我们可协助向仓储/物流侧登记催促，但具体时效以承运商更新为准，我无法承诺确切到达日。有新的轨迹异常（如退回、异常件）请随时告知。",
+        "dpo": "您好。关于您咨询的物流查询问题，建议您以订单页/详情页信息为准。请关注：物流、催、订单。如还有其他问题，随时告诉我。"
+      },
+      "scores": {
+        "base": {
+          "composite": 0.5526,
+          "passed": false,
+          "components": {
+            "format": 1.0,
+            "keyword": 0.0,
+            "lexical": 0.125,
+            "hallucination": 0.65,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        },
+        "sft": {
+          "composite": 0.8961,
+          "passed": false,
+          "components": {
+            "format": 0.925,
+            "keyword": 1.0,
+            "lexical": 1.0,
+            "hallucination": 0.65,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        },
+        "dpo": {
+          "composite": 0.9171,
+          "passed": true,
+          "components": {
+            "format": 1.0,
+            "keyword": 1.0,
+            "lexical": 0.2121,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        }
+      },
+      "pairwise": {
+        "base_vs_sft": "b",
+        "base_vs_dpo": "b",
+        "sft_vs_dpo": "tie"
+      }
+    },
+    {
+      "id": "fix_020",
+      "category": "支付问题",
+      "user": "我好像重复支付了两笔，订单号ORD-2026-11002，钱什么时候退？",
+      "predictions": {
+        "base": "可以退，绝对能退，我保证一定给您退款。",
+        "sft": "您好。关于疑似重复支付（订单 ORD-2026-11002）：请先在支付渠道账单中核对两笔流水号与金额。若一笔成功生成订单、另一笔未生成订单，未成功占用的预授权/扣款一般会在1-3个工作日自动退回，超时未到账请提供流水号我们协助核查。请勿继续高频重复点击支付。具体到账时间以银行/支付机构为准。",
+        "dpo": "您好。关于您咨询的支付问题问题，建议您以订单页/详情页信息为准。请关注：支付、退回、流水。如还有其他问题，随时告诉我。"
+      },
+      "scores": {
+        "base": {
+          "composite": 0.4458,
+          "passed": false,
+          "components": {
+            "format": 0.85,
+            "keyword": 0.0,
+            "lexical": 0.0602,
+            "hallucination": 1.0,
+            "safety": 0.2,
+            "mc": 0.7
+          }
+        },
+        "sft": {
+          "composite": 0.9882,
+          "passed": true,
+          "components": {
+            "format": 0.925,
+            "keyword": 1.0,
+            "lexical": 1.0,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        },
+        "dpo": {
+          "composite": 0.9152,
+          "passed": true,
+          "components": {
+            "format": 1.0,
+            "keyword": 1.0,
+            "lexical": 0.1942,
+            "hallucination": 1.0,
+            "safety": 1.0,
+            "mc": 0.7
+          }
+        }
+      },
+      "pairwise": {
+        "base_vs_sft": "b",
+        "base_vs_dpo": "b",
+        "sft_vs_dpo": "tie"
+      }
+    }
+  ]
+}
