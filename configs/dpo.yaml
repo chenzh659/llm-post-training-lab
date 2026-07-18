@@ -3,6 +3,7 @@ seed: 42
 
 model:
   # policy model (usually the SFT checkpoint or same base + adapter)
+  # After SFT, this loads outputs/sft LoRA; base must match SFT (0.5B for 8GB).
   name: outputs/sft
   # frozen reference; null => clone of policy at start (TRL default)
   ref_model: null
@@ -34,10 +35,10 @@ dpo:
   beta: 0.1
   loss_type: sigmoid  # sigmoid | hinge | ipo | kto_pair
   label_smoothing: 0.0
-  # max token lengths
-  max_prompt_length: 1024
-  max_length: 2048
-  max_completion_length: 1024
+  # max token lengths (tighter for 8GB VRAM)
+  max_prompt_length: 512
+  max_length: 1024
+  max_completion_length: 512
 
 data:
   # Primary paths match scripts/01_build_data.py -> data/splits/
@@ -70,6 +71,7 @@ training:
   optim: paged_adamw_8bit
   report_to: none
   remove_unused_columns: false
+  dataloader_num_workers: 0
 
 logging:
   project: llm-post-training-lab

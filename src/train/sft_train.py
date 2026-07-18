@@ -315,7 +315,8 @@ def build_sft_config(
 
     # SFT-specific fields when using SFTConfig
     if ConfigCls.__name__ == "SFTConfig":
-        kwargs["max_seq_length"] = int((train_cfg.get("max_seq_len") or 512) if demo else 2048)
+        default_len = 512 if demo else 2048
+        kwargs["max_seq_length"] = int(train_cfg.get("max_seq_len") or default_len)
         # packing can break tiny demos
         kwargs["packing"] = False if demo else bool(train_cfg.get("packing", False))
         kwargs["dataset_text_field"] = "text"

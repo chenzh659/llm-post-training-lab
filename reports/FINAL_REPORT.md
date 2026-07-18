@@ -1,9 +1,9 @@
 # FINAL_REPORT — LLM Post-Training Lab Experiment Report
 
 > **Domain:** 中文电商智能客服助手  
-> **Base model (target):** `Qwen/Qwen2.5-0.5B-Instruct` (demo) / `Qwen2.5-1.5B-Instruct` (full)  
+> **Base model:** `Qwen/Qwen2.5-0.5B-Instruct`（真训默认 / demo）· 可选 `Qwen2.5-1.5B-Instruct`  
 > **Seed:** 42  
-> **Mode:** Demo / offline (mock generation + rule metrics where GPU unavailable)  
+> **Mode:** **Real GPU QLoRA 已完成**（RTX 4060 Laptop 8GB）；离线规则评测图仍可为 demo mock  
 > **Date:** 2026-07-18  
 
 ---
@@ -79,21 +79,26 @@ python scripts/01_build_data.py --sft-samples 64 --pref-pairs 32 --skip-plots
 
 ## 4. Stage 4 — SFT 监督微调
 
-| 项 | 全量 | Demo（无 GPU） |
-|----|------|----------------|
-| 方法 | QLoRA / LoRA SFT（TRL） | Mock metrics + 占位 adapter |
-| 配置 | `configs/sft.yaml` | `python scripts/02_sft_train.py --demo` 或 pipeline |
-| 输出 | `outputs/sft/` | `outputs/sft/MOCK_CHECKPOINT.txt` |
-| 指标文件 | `reports/sft_train_metrics.json` | 同左（`mock: true`） |
+| 项 | 全量 GPU（已跑通） | Demo（无 GPU） |
+|----|-------------------|----------------|
+| 方法 | 4-bit QLoRA SFT（TRL + PEFT） | Mock metrics + 占位 adapter |
+| 配置 | `configs/sft.yaml`（0.5B · batch=1 · accum=16 · seq=1024） | `python scripts/02_sft_train.py --demo` |
+| 输出 | `outputs/sft/adapter_model.safetensors`（~17MB，gitignored） | `outputs/sft/MOCK_CHECKPOINT.txt` |
+| 指标文件 | `reports/sft_train_metrics.json`（`mock: false`） | 同路径（`mock: true`） |
 
-### 训练过程量（示例 / 占位）
+### 训练过程量（Real GPU · RTX 4060 Laptop 8GB · 2026-07-18）
 
-| 指标 | Demo mock | 全量 GPU（填写） |
-|------|----------:|-----------------:|
-| train_loss | 1.234 | _TBD_ |
-| wall_time_sec | ~0.01 | _TBD_ |
-| peak_gpu_memory_mb | null | _TBD_ |
-| num_train_samples | 32 | _TBD_ |
+| 指标 | Demo mock（历史） | **Real GPU** |
+|------|------------------:|-------------:|
+| model | 0.5B（mock） | **Qwen2.5-0.5B-Instruct + QLoRA** |
+| train_loss | 1.234 | **0.364** |
+| wall_time_sec | ~0.01 | **2989**（~50 min） |
+| peak_gpu_memory_mb | null | **1565** |
+| num_train_samples | 32 | **1543** |
+| epochs / steps | 1 | **2 / 194** |
+| mean_token_accuracy | — | **~0.974** |
+
+日志：`reports/sft_train_log.txt`（step loss 3.6 → ~0.07）。
 
 > **解读：** 若 loss 下降但 Stage 7 幻觉率上升，应优先修数据（禁止编造单号）而非继续加 epoch。
 
@@ -113,12 +118,26 @@ python scripts/01_build_data.py --sft-samples 64 --pref-pairs 32 --skip-plots
 
 ## 6. Stage 6 — DPO 偏好对齐
 
-| 项 | 全量 | Demo（无 GPU） |
-|----|------|----------------|
-| 方法 | DPO + LoRA（TRL） | Mock metrics |
-| 配置 | `configs/dpo.yaml`（beta=0.1） | pipeline `--demo` |
-| 输出 | `outputs/dpo/` | mock checkpoint |
-| 指标 | `reports/dpo_train_metrics.json` | `train_loss≈0.456`（mock） |
+| 项 | 全量 GPU（已跑通） | Demo（无 GPU） |
+|----|-------------------|----------------|
+| 方法 | DPO + LoRA on SFT adapter（TRL） | Mock metrics |
+| 配置 | `configs/dpo.yaml`（beta=0.1 · max_len=1024） | pipeline `--demo` |
+| 输出 | `outputs/dpo/adapter_model.safetensors`（~17MB，gitignored） | mock checkpoint |
+| 指标 | `reports/dpo_train_metrics.json`（`mock: false`） | `train_loss≈0.456`（mock） |
+
+### 训练过程量（Real GPU · 接在 SFT 之后）
+
+| 指标 | Demo mock（历史） | **Real GPU** |
+|------|------------------:|-------------:|
+| base / policy | mock | **0.5B + `outputs/sft` adapter** |
+| train_loss | 0.456 | **0.114** |
+| wall_time_sec | ~0.01 | **633**（~11 min） |
+| peak_gpu_memory_mb | null | **2116** |
+| num_train_samples | 32 | **638** |
+| epochs / steps | 1 | **1 / 40** |
+| 偏好信号 | — | 后期 **rewards/accuracies≈1.0**，margins 上升 |
+
+日志：`reports/dpo_train_log.txt`。
 
 ---
 

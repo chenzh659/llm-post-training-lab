@@ -2,7 +2,9 @@
 seed: 42
 
 model:
-  name: Qwen/Qwen2.5-1.5B-Instruct
+  # 8GB (RTX 4060 Laptop): 0.5B QLoRA is the stable default.
+  # For higher quality later, switch to Qwen/Qwen2.5-1.5B-Instruct + batch_size 1.
+  name: Qwen/Qwen2.5-0.5B-Instruct
   trust_remote_code: true
   # 4-bit QLoRA; set to null / 16 for full bf16 LoRA
   bits: 4
@@ -32,8 +34,9 @@ data:
   # Primary paths match scripts/01_build_data.py -> data/splits/
   train_path: data/splits/train.sft.jsonl
   eval_path: data/splits/val.sft.jsonl
-  max_seq_len: 2048
-  packing: true
+  # 1024 fits 8GB more reliably than 2048
+  max_seq_len: 1024
+  packing: false
   dataset_text_field: text
   # chat template: "auto" uses tokenizer.apply_chat_template
   chat_template: auto
@@ -41,9 +44,9 @@ data:
 training:
   output_dir: outputs/sft
   num_train_epochs: 2
-  per_device_train_batch_size: 2
-  per_device_eval_batch_size: 2
-  gradient_accumulation_steps: 8
+  per_device_train_batch_size: 1
+  per_device_eval_batch_size: 1
+  gradient_accumulation_steps: 16
   learning_rate: 2.0e-4
   lr_scheduler_type: cosine
   warmup_ratio: 0.03
@@ -60,7 +63,7 @@ training:
   gradient_checkpointing: true
   optim: paged_adamw_8bit
   report_to: none
-  dataloader_num_workers: 2
+  dataloader_num_workers: 0
   remove_unused_columns: false
 
 logging:

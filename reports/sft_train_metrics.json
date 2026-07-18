@@ -1,19 +1,37 @@
 {
   "stage": "sft",
-  "demo": true,
-  "mock": true,
+  "demo": false,
+  "mock": false,
   "model_name": "Qwen/Qwen2.5-0.5B-Instruct",
-  "device": "cpu",
-  "output_dir": "D:\\coding place\\a_project\\github_place\\for resume\\llm-post-training-lab\\outputs\\sft",
-  "num_train_samples": 32,
-  "train_wall_time_sec": 0.01,
-  "peak_gpu_memory_mb": null,
+  "use_qlora": true,
+  "device": "cuda",
+  "hardware": "NVIDIA GeForce RTX 4060 Laptop GPU 8GB",
+  "train_path": "data/splits/train.sft.jsonl",
+  "eval_path": "data/splits/val.sft.jsonl",
+  "output_dir": "outputs/sft",
+  "num_train_samples": 1543,
+  "num_train_epochs": 2,
+  "train_wall_time_sec": 2988.855,
+  "peak_gpu_memory_mb": 1564.65,
   "seed": 42,
-  "train_loss": 1.234,
-  "metrics": {
-    "train_loss": 1.234,
-    "train_runtime": 0.01,
-    "epoch": 1.0
+  "train_loss": 0.36395851084866476,
+  "mean_token_accuracy": 0.9743936332789335,
+  "config_notes": {
+    "bits": 4,
+    "per_device_train_batch_size": 1,
+    "gradient_accumulation_steps": 16,
+    "max_seq_len": 1024,
+    "learning_rate": 2.0e-4
   },
-  "note": "Mock metrics — heavy training skipped (no CUDA / offline demo path)."
+  "metrics": {
+    "train_runtime": 2954.6576,
+    "train_samples_per_second": 1.044,
+    "train_steps_per_second": 0.066,
+    "total_flos": 1334377105989120.0,
+    "train_loss": 0.36395851084866476,
+    "entropy": 0.0902222253382206,
+    "num_tokens": 606486.0,
+    "mean_token_accuracy": 0.9743936332789335,
+    "epoch": 2.0
+  }
 }

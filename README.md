@@ -5,6 +5,7 @@
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-green.svg)](https://www.python.org/)
 [![Demo Mode](https://img.shields.io/badge/Demo-CPU%20OK-orange.svg)](#quick-start)
+[![GPU](https://img.shields.io/badge/GPU-RTX%204060%208GB%20QLoRA-green.svg)](#real-gpu-run)
 [![GitHub](https://img.shields.io/badge/GitHub-llm--post--training--lab-black.svg)](https://github.com/chenzh659/llm-post-training-lab)
 
 面向简历与工程实践的 **LLM Post-Training** 完整流水线：领域数据构建 → SFT → DPO → 规则评测 / 错误分析 → 推理部署与可复现报告。业务场景固定为 **中文电商智能客服助手**。
@@ -34,15 +35,39 @@
 
 | 场景 | 模型 |
 |------|------|
-| **Demo / CI** | `Qwen/Qwen2.5-0.5B-Instruct` |
-| **质量更好** | `Qwen/Qwen2.5-1.5B-Instruct` |
+| **Demo / CI / 8GB 真训默认** | `Qwen/Qwen2.5-0.5B-Instruct` |
+| **质量更好（显存更宽裕）** | `Qwen/Qwen2.5-1.5B-Instruct` |
+
+当前 [`configs/sft.yaml`](configs/sft.yaml) / [`configs/dpo.yaml`](configs/dpo.yaml) 按 **8GB 消费卡 QLoRA** 收紧：`batch=1`、`grad_accum=16`、`max_seq_len=1024`。
 
 ---
 
-## 结果速览（仓库内可复现 Demo 指标）
+## Real GPU Run（已完成 · 非 mock）
 
-> 下图基于仓库中的合成数据与 `reports/*.json` 生成。全量 GPU 训练后请重跑  
-> `python scripts/09_plot_reports.py` 覆盖图表。
+<a id="real-gpu-run"></a>
+
+在 **NVIDIA GeForce RTX 4060 Laptop 8GB** 上完成真实 QLoRA 训练（`demo: false` / `mock: false`）。  
+权重适配器默认在 `outputs/`（**gitignored**，约各 17MB）；指标与日志在 `reports/`。
+
+| 阶段 | 基座 / 起点 | 样本 | 设置 | 耗时 | train_loss | peak VRAM | 产物 |
+|------|-------------|-----:|------|-----:|-----------:|----------:|------|
+| **SFT** | `Qwen/Qwen2.5-0.5B-Instruct` + 4bit QLoRA | 1543 | 2 epoch · LoRA r=16 | **~50 min** | **0.364** | ~1.6 GB | `outputs/sft/` |
+| **DPO** | SFT adapter + 4bit · β=0.1 | 638 | 1 epoch | **~11 min** | **0.114** | ~2.1 GB | `outputs/dpo/` |
+
+补充信号：
+
+- SFT 后期 step loss ~0.07–0.08，mean token accuracy ≈ **97.4%**
+- DPO 后期 `rewards/accuracies` ≈ **1.0**，margin 上升（chosen↑ / rejected↓）
+- 明细：[`reports/sft_train_metrics.json`](reports/sft_train_metrics.json) · [`reports/dpo_train_metrics.json`](reports/dpo_train_metrics.json) · 训练日志 `reports/*_train_log.txt`
+
+> **Loss ≠ Quality：** 上表是过程量。业务决策仍看 Stage 7–8 规则评测；图中 Base/SFT/DPO 对比目前仍以 **demo mock 评测** 为主（真训后需重跑 `05_eval_compare.py` 刷新）。
+
+---
+
+## 结果速览（数据与评测图表）
+
+> 数据工程图基于仓库合成数据；模型对比 / 胜率 / serving 图来自 `reports/*.json`（评测侧可为 demo mock）。  
+> 真训后请重跑评测再执行 `python scripts/09_plot_reports.py`。
 
 ### 数据工程
 
@@ -194,19 +219,24 @@ python scripts/run_pipeline.py --stage eval --demo
 python scripts/run_pipeline.py --stage deploy --demo
 ```
 
-### 5. 完整 GPU 路径
+### 5. 完整 GPU 路径（8GB 已验证）
 
 ```bash
+# 建议：CUDA 可用的 conda/venv；可选把 HF 缓存放到大盘
+# export HF_HOME=/d/huggingface
+
 python scripts/01_build_data.py --config configs/data.yaml
-python scripts/02_sft_train.py --config configs/sft.yaml
-python scripts/03_dpo_train.py --config configs/dpo.yaml
-python scripts/04_eval_zero_shot.py --model outputs/sft
+python scripts/02_sft_train.py --config configs/sft.yaml   # → outputs/sft LoRA
+python scripts/03_dpo_train.py --config configs/dpo.yaml   # → outputs/dpo LoRA
+python scripts/04_eval_zero_shot.py --model outputs/dpo
 python scripts/05_eval_compare.py --base Qwen/Qwen2.5-0.5B-Instruct --sft outputs/sft --dpo outputs/dpo
 python scripts/06_error_analysis.py --from-zero-shot reports/zero_shot_results.json
-python scripts/07_deploy_vllm.py --config configs/deploy.yaml
+python scripts/07_deploy_vllm.py --config configs/deploy.yaml   # Linux+CUDA 更合适
 python scripts/08_bench_serving.py --config configs/deploy.yaml
 python scripts/09_plot_reports.py
 ```
+
+**8GB 注意：** 默认已用 0.5B + batch=1。若 OOM，再降 `max_seq_len` 或改 `bits: null` 仅当显存够用时尝试更大模型。
 
 ---
 

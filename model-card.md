@@ -13,7 +13,7 @@ tags:
   - lora
   - dpo
   - peft
-base_model: Qwen/Qwen2.5-1.5B-Instruct
+base_model: Qwen/Qwen2.5-0.5B-Instruct
 pipeline_tag: text-generation
 ---
 
@@ -21,7 +21,7 @@ pipeline_tag: text-generation
 
 Post-trained **中文电商智能客服** assistant built in this lab via supervised fine-tuning (SFT) with LoRA/QLoRA, followed by Direct Preference Optimization (DPO). This card follows Hugging Face model-card conventions and is intended for portfolio / reproducibility documentation.
 
-> **Status:** Demo / mock metrics may be present under `reports/`. Fill GPU-run numbers after `python scripts/run_pipeline.py` without `--demo` on CUDA.
+> **Status (2026-07-18):** Real QLoRA SFT + DPO completed on **RTX 4060 Laptop 8GB** (`Qwen2.5-0.5B-Instruct`). Metrics: `reports/sft_train_metrics.json` / `dpo_train_metrics.json` (`mock: false`). Offline rule-eval charts may still be demo mock until `05_eval_compare.py` is re-run.
 
 ---
 
@@ -34,7 +34,7 @@ Post-trained **中文电商智能客服** assistant built in this lab via superv
 - **Domain:** 中文电商智能客服（退换货 / 物流 / 优惠 / 支付 / 投诉）
 - **Language(s):** Primary: Simplified Chinese (`zh`); limited English for product IDs / SKUs / logistics codes
 - **License:** Apache-2.0 (adapters inherit base-model license constraints; verify base license before redistribution)
-- **Finetuned from model:** `Qwen/Qwen2.5-1.5B-Instruct` (full GPU default in `configs/sft.yaml`); demo uses `Qwen/Qwen2.5-0.5B-Instruct`
+- **Finetuned from model:** `Qwen/Qwen2.5-0.5B-Instruct` (default in `configs/sft.yaml` for 8GB QLoRA); optional upgrade `Qwen/Qwen2.5-1.5B-Instruct` when VRAM allows
 - **Adapters:**
   - **SFT LoRA** — low-rank adapters on attention / MLP projections for multi-turn CS style, policy compliance, and tool-aware reply format
   - **DPO LoRA** (or continued LoRA after SFT) — preference-aligned adapters trained on chosen/rejected CS reply pairs
