@@ -259,6 +259,7 @@ def test_imports() -> None:
         "src.data.clean",
         "src.data.split",
         "src.data.analyze",
+        "src.demo.chat_engine",
         "evaluation.metrics",
         "evaluation.build_test_suite",
         "evaluation.zero_shot_eval",

@@ -1,0 +1,26 @@
+# Gradio interactive demo defaults
+seed: 42
+
+ui:
+  host: 127.0.0.1
+  port: 7860
+  share: false
+  title: "中文电商智能客服 · Post-Training Demo"
+
+model:
+  # mock | base | sft | dpo | HF id | local path
+  default: mock
+  base_model: Qwen/Qwen2.5-0.5B-Instruct
+  sft_path: outputs/sft
+  dpo_path: outputs/dpo
+  trust_remote_code: true
+  torch_dtype: auto
+
+generation:
+  max_new_tokens: 256
+  temperature: 0.7
+  top_p: 0.9
+
+scoring:
+  # offline rule metrics only (no API judge required)
+  enable_rule_panel: true

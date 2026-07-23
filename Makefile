@@ -5,7 +5,7 @@
 PY ?= python
 ROOT := .
 
-.PHONY: help smoke demo data sft dpo eval deploy pipeline report plots clean-outputs
+.PHONY: help smoke demo data sft dpo eval deploy pipeline report plots gradio clean-outputs
 
 help:
 	@echo Targets:
@@ -16,6 +16,7 @@ help:
 	@echo   make deploy     - vLLM helper + serving bench (DEMO=1 for offline mock)
 	@echo   make pipeline   - alias for demo
 	@echo   make plots      - regenerate docs/assets/*.png from reports
+	@echo   make gradio     - local Gradio chat demo (mock by default)
 	@echo   make report     - remind FINAL_REPORT path
 	@echo   make clean-outputs - remove outputs/ mock checkpoints
 
@@ -47,6 +48,9 @@ report:
 
 plots:
 	$(PY) scripts/09_plot_reports.py
+
+gradio:
+	$(PY) scripts/11_gradio_demo.py --mock
 
 clean-outputs:
 	$(PY) -c "import shutil, pathlib; p=pathlib.Path('outputs'); shutil.rmtree(p, ignore_errors=True); print('removed outputs/')"
