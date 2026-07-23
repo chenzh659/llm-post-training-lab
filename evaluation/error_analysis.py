@@ -110,9 +110,11 @@ def classify_errors(
         reasons.append(f"不当政策承诺/禁语: {policy_hits or forbid_hits}")
 
     # Off-topic vs missing info
+    # NOTE: do not use ``x or default`` on hit_rate — 0.0 is a valid value.
     missing = kw.get("missing") or []
-    n_exp = kw.get("n_expected") or 0
-    hit_rate = float(kw.get("hit_rate") or 1.0)
+    n_exp = int(kw.get("n_expected") or 0)
+    hit_rate_raw = kw.get("hit_rate")
+    hit_rate = float(hit_rate_raw) if hit_rate_raw is not None else 1.0
     user_overlap = char_f1(text, user) if user else 0.0
 
     if n_exp > 0 and hit_rate == 0.0 and user_overlap < 0.08:

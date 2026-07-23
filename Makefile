@@ -5,11 +5,12 @@
 PY ?= python
 ROOT := .
 
-.PHONY: help smoke demo data sft dpo eval deploy pipeline report plots clean-outputs
+.PHONY: help smoke test demo data sft dpo eval deploy pipeline report plots clean-outputs
 
 help:
 	@echo Targets:
 	@echo   make smoke      - unit/schema smoke (no model download)
+	@echo   make test       - pytest suite (no model download)
 	@echo   make demo       - full pipeline in --demo mode
 	@echo   make data       - build domain data
 	@echo   make eval       - offline eval (use DEMO=1 for mock)
@@ -21,6 +22,9 @@ help:
 
 smoke:
 	$(PY) scripts/smoke_test.py
+
+test:
+	$(PY) -m pytest -q --tb=short
 
 demo:
 	$(PY) scripts/run_pipeline.py --stage all --demo
