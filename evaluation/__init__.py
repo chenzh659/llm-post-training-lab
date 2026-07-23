@@ -12,6 +12,8 @@ error_analysis
     Error taxonomy: 幻觉 / 政策错误 / 格式违规 / 态度不当 / 答非所问 / 信息缺失.
 build_test_suite
     Enrich SFT test split with gold keyword checks; load fixtures.
+llm_judge
+    Rule / LLM / hybrid / mock judge (OpenAI-compatible API).
 """
 
 from __future__ import annotations
@@ -22,6 +24,7 @@ __all__ = [
     "compare_models",
     "error_analysis",
     "build_test_suite",
+    "llm_judge",
 ]
 
 __version__ = "0.1.0"

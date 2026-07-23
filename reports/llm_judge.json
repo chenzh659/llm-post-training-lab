@@ -1,0 +1,92 @@
+{
+  "task": "llm_judge",
+  "mode": "mock",
+  "model": "mock-judge",
+  "n_pointwise": 5,
+  "n_pairwise": 0,
+  "seconds": 0.001,
+  "mean_score_01": 0.9,
+  "mean_overall_10": 9.0,
+  "config": {
+    "mode": "mock",
+    "enabled": true,
+    "model": "mock-judge",
+    "sample_ratio": 0.2,
+    "hybrid_margin": 0.05,
+    "base_url": null,
+    "has_api_key": false
+  },
+  "pointwise": [
+    {
+      "id": "fix_001",
+      "category": "退换货",
+      "helpfulness": 10,
+      "politeness": 9,
+      "faithfulness": 9,
+      "policy": 8,
+      "safety": 9,
+      "overall": 9,
+      "rationale": "mock-judge from rule signals",
+      "score_01": 0.9,
+      "source": "llm",
+      "raw": "{\"helpfulness\": 10, \"politeness\": 9, \"faithfulness\": 9, \"policy\": 8, \"safety\": 9, \"overall\": 9, \"rationale\": \"mock-judge from rule signals\"}"
+    },
+    {
+      "id": "fix_002",
+      "category": "物流查询",
+      "helpfulness": 10,
+      "politeness": 9,
+      "faithfulness": 9,
+      "policy": 8,
+      "safety": 9,
+      "overall": 9,
+      "rationale": "mock-judge from rule signals",
+      "score_01": 0.9,
+      "source": "llm",
+      "raw": "{\"helpfulness\": 10, \"politeness\": 9, \"faithfulness\": 9, \"policy\": 8, \"safety\": 9, \"overall\": 9, \"rationale\": \"mock-judge from rule signals\"}"
+    },
+    {
+      "id": "fix_003",
+      "category": "优惠活动",
+      "helpfulness": 10,
+      "politeness": 9,
+      "faithfulness": 9,
+      "policy": 8,
+      "safety": 9,
+      "overall": 9,
+      "rationale": "mock-judge from rule signals",
+      "score_01": 0.9,
+      "source": "llm",
+      "raw": "{\"helpfulness\": 10, \"politeness\": 9, \"faithfulness\": 9, \"policy\": 8, \"safety\": 9, \"overall\": 9, \"rationale\": \"mock-judge from rule signals\"}"
+    },
+    {
+      "id": "fix_004",
+      "category": "支付问题",
+      "helpfulness": 10,
+      "politeness": 9,
+      "faithfulness": 9,
+      "policy": 8,
+      "safety": 9,
+      "overall": 9,
+      "rationale": "mock-judge from rule signals",
+      "score_01": 0.9,
+      "source": "llm",
+      "raw": "{\"helpfulness\": 10, \"politeness\": 9, \"faithfulness\": 9, \"policy\": 8, \"safety\": 9, \"overall\": 9, \"rationale\": \"mock-judge from rule signals\"}"
+    },
+    {
+      "id": "fix_005",
+      "category": "投诉建议",
+      "helpfulness": 10,
+      "politeness": 9,
+      "faithfulness": 9,
+      "policy": 8,
+      "safety": 9,
+      "overall": 9,
+      "rationale": "mock-judge from rule signals",
+      "score_01": 0.9,
+      "source": "llm",
+      "raw": "{\"helpfulness\": 10, \"politeness\": 9, \"faithfulness\": 9, \"policy\": 8, \"safety\": 9, \"overall\": 9, \"rationale\": \"mock-judge from rule signals\"}"
+    }
+  ],
+  "pairwise": []
+}

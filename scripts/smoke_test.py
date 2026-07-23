@@ -264,7 +264,9 @@ def test_imports() -> None:
         "evaluation.zero_shot_eval",
         "evaluation.compare_models",
         "evaluation.error_analysis",
+        "evaluation.llm_judge",
     ]
+
     for m in modules:
         try:
             __import__(m)
