@@ -37,16 +37,19 @@ metrics:
 
 judge:
   # rule: keyword / regex heuristics only
-  # llm: optional API judge (requires OPENAI_API_KEY or compatible base)
-  # hybrid: rule first, llm on disagreements / subset
-  mode: hybrid  # rule | llm | hybrid
+  # llm: optional API judge (requires OPENAI_API_KEY or LLM_JUDGE_API_KEY)
+  # hybrid: rule first, llm on close pairs / low-confidence / sampled subset
+  # mock: deterministic offline judge (CI / demo; no network)
+  mode: hybrid  # rule | llm | hybrid | mock
+  # pairwise: escalate to LLM when |score_a - score_b| < hybrid_margin
+  hybrid_margin: 0.05
   llm:
     enabled: false
     model: gpt-4o-mini
-    base_url: null  # e.g. https://api.openai.com/v1
+    base_url: null  # e.g. https://api.openai.com/v1 or a local gateway
     temperature: 0.0
     max_tokens: 256
-    # fraction of samples sent to LLM when mode=hybrid
+    # fraction of samples sent to LLM when mode=hybrid (stable hash bucket)
     sample_ratio: 0.2
   rule:
     min_response_chars: 4
