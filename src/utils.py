@@ -54,6 +54,7 @@ def set_seed(seed: int) -> None:
 
         np.random.seed(seed)
     except Exception:
+        # ImportError, or broken native deps (e.g. WinError on torch/numpy DLL)
         pass
     try:
         import torch
@@ -79,6 +80,7 @@ def get_device(prefer_cuda: bool = True) -> str:
         if getattr(torch.backends, "mps", None) is not None and torch.backends.mps.is_available():
             return "mps"
     except Exception:
+        # ImportError or OSError when torch DLLs fail to load on Windows
         pass
     return "cpu"
 

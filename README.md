@@ -147,11 +147,12 @@ llm-post-training-lab/
 ├── docs/assets/             # README 图表（PNG）
 ├── evaluation/              # metrics · zero_shot · compare · error_analysis
 ├── scripts/
-│   ├── 01_build_data.py … 08_bench_serving.py
-│   ├── 09_plot_reports.py   # 从 reports/*.json 生成图表
+│   ├── 01_build_data.py … 09_plot_reports.py
+│   ├── 10_llm_judge.py      # LLM-as-judge（rule / llm / hybrid / mock）
+│   ├── 11_gradio_demo.py    # Gradio 交互 Demo（mock / base / SFT / DPO）
 │   ├── run_pipeline.py
 │   └── smoke_test.py
-├── src/data · src/train · src/utils.py
+├── src/data · src/train · src/demo · src/utils.py
 ├── reports/                 # 指标 JSON + FINAL_REPORT.md
 ├── requirements.txt
 ├── Makefile
@@ -161,7 +162,7 @@ llm-post-training-lab/
 
 ---
 
-## 流水线 Stages 1–10
+## 流水线 Stages 1–11
 
 | Stage | 名称 | 入口 |
 |------:|------|------|
@@ -174,6 +175,7 @@ llm-post-training-lab/
 | 8b | LLM-as-judge | `10_llm_judge.py`（rule / llm / hybrid / mock） |
 | 9 | 服务与压测 | `07_deploy_vllm.py` / `08_bench_serving.py` |
 | 10 | 报告与图表 | `reports/FINAL_REPORT.md` · `09_plot_reports.py` |
+| 11 | **交互 Demo** | `scripts/11_gradio_demo.py`（Gradio 对话 + 规则打分） |
 
 
 一键：
@@ -269,6 +271,34 @@ python scripts/09_plot_reports.py
 
 **8GB 注意：** 默认已用 0.5B + batch=1。若 OOM，再降 `max_seq_len` 或改 `bits: null` 仅当显存够用时尝试更大模型。
 
+### 6. Gradio 交互 Demo（本地对话 + 规则打分）
+
+无需 GPU 的 mock 路径（默认）：
+
+```bash
+pip install 'gradio>=4.44.0,<6.0.0'   # 已写入 requirements.txt
+python scripts/11_gradio_demo.py --mock
+# 或: make gradio
+# 浏览器打开 http://127.0.0.1:7860
+```
+
+加载本地 adapter（需先完成 SFT/DPO，权重在 `outputs/`）：
+
+```bash
+python scripts/11_gradio_demo.py --model sft
+python scripts/11_gradio_demo.py --model dpo --base-model Qwen/Qwen2.5-0.5B-Instruct
+python scripts/11_gradio_demo.py --model base   # 仅 HF 基座
+```
+
+| UI 能力 | 说明 |
+|---------|------|
+| 模型切换 | `mock` / `base` / `sft` / `dpo` |
+| 示例问题 | 退换货 · 物流 · 优惠 · 支付 · 投诉 |
+| 规则面板 | composite / format / keyword / hallucination / safety |
+| 生成参数 | temperature · max new tokens |
+
+引擎与单测：[`src/demo/chat_engine.py`](src/demo/chat_engine.py) · [`configs/demo.yaml`](configs/demo.yaml) · `tests/test_gradio_demo.py`。
+
 ---
 
 ## 样例数据预览
@@ -318,6 +348,7 @@ python scripts/09_plot_reports.py
 [ ] python scripts/smoke_test.py          → 全 PASS
 [ ] python scripts/run_pipeline.py --stage all --demo
 [ ] python scripts/09_plot_reports.py
+[ ] python scripts/11_gradio_demo.py --mock   → 打开 http://127.0.0.1:7860
 [ ] 打开 reports/FINAL_REPORT.md 与 docs/assets/
 ```
 

@@ -40,3 +40,6 @@ openai>=1.55.0,<2.0.0
 matplotlib>=3.9.0,<3.11.0
 seaborn>=0.13.2,<0.14.0
 rich>=13.9.0,<14.0.0
+
+# Interactive demo (optional; scripts/11_gradio_demo.py)
+gradio>=4.44.0,<6.0.0
