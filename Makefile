@@ -1,15 +1,16 @@
 # Windows / cross-platform helpers (no bash required for core flows)
-# Usage:  make smoke | make demo | make data | make eval
+# Usage:  make smoke | make test | make demo | make data | make eval | make gradio
 # Requires: python on PATH
 
 PY ?= python
 ROOT := .
 
-.PHONY: help smoke demo data sft dpo eval deploy pipeline report plots gradio clean-outputs
+.PHONY: help smoke test demo data sft dpo eval deploy pipeline report plots gradio clean-outputs
 
 help:
 	@echo Targets:
 	@echo   make smoke      - unit/schema smoke (no model download)
+	@echo   make test       - pytest suite (pip install -r requirements-dev.txt)
 	@echo   make demo       - full pipeline in --demo mode
 	@echo   make data       - build domain data
 	@echo   make eval       - offline eval (use DEMO=1 for mock)
@@ -22,6 +23,9 @@ help:
 
 smoke:
 	$(PY) scripts/smoke_test.py
+
+test:
+	$(PY) -m pytest -q
 
 demo:
 	$(PY) scripts/run_pipeline.py --stage all --demo

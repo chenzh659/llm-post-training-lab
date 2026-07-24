@@ -147,8 +147,8 @@ llm-post-training-lab/
 ├── docs/assets/             # README 图表（PNG）
 ├── evaluation/              # metrics · zero_shot · compare · error_analysis
 ├── scripts/
-│   ├── 01_build_data.py … 08_bench_serving.py
-│   ├── 09_plot_reports.py   # 从 reports/*.json 生成图表
+│   ├── 01_build_data.py … 09_plot_reports.py
+│   ├── 10_llm_judge.py      # LLM-as-judge（rule / llm / hybrid / mock）
 │   ├── 11_gradio_demo.py    # Gradio 交互 Demo（mock / base / SFT / DPO）
 │   ├── run_pipeline.py
 │   └── smoke_test.py
@@ -162,7 +162,7 @@ llm-post-training-lab/
 
 ---
 
-## 流水线 Stages 1–10
+## 流水线 Stages 1–11
 
 | Stage | 名称 | 入口 |
 |------:|------|------|
@@ -172,9 +172,11 @@ llm-post-training-lab/
 | 5–6 | 偏好 + DPO | `01_build_data` + `03_dpo_train.py` |
 | 7 | 离线评测 | `04_eval_zero_shot.py` / `05_eval_compare.py` |
 | 8 | 错误分析 | `06_error_analysis.py` |
+| 8b | LLM-as-judge | `10_llm_judge.py`（rule / llm / hybrid / mock） |
 | 9 | 服务与压测 | `07_deploy_vllm.py` / `08_bench_serving.py` |
 | 10 | 报告与图表 | `reports/FINAL_REPORT.md` · `09_plot_reports.py` |
 | 11 | **交互 Demo** | `scripts/11_gradio_demo.py`（Gradio 对话 + 规则打分） |
+
 
 一键：
 
@@ -191,10 +193,12 @@ python scripts/run_pipeline.py --stage all --demo
 |------|------|
 | 任务质量 | 关键词命中、composite score、pass rate |
 | 相对质量 | Base/SFT/DPO 规则胜率 |
+| 裁判质量 | LLM-as-judge（helpfulness / faithfulness / policy…；hybrid 可回退 mock） |
 | 可靠性 | Hallucination rate（编造单号/价格） |
 | 安全 | Safety pass / banned phrase |
 | 结构化 | Format compliance |
 | 服务 | TTFT、throughput、p95 latency |
+
 
 ---
 
@@ -215,13 +219,18 @@ pip install -r requirements.txt
 # 生成 README 图表至少需要: pip install matplotlib pyyaml
 ```
 
-### 2. 冒烟（无模型下载）
+### 2. 冒烟 + 单元测试（无模型下载）
 
 ```bash
 python scripts/smoke_test.py
 # 或: make smoke
+
+pip install -r requirements-dev.txt
+python -m pytest -q
+# 或: make test
 ```
 
+GitHub Actions 在每个 PR 上自动跑 smoke + pytest（见 [`.github/workflows/ci.yml`](.github/workflows/ci.yml)）。
 ### 3. Demo 全流程（CPU OK）
 
 ```bash
@@ -251,7 +260,11 @@ python scripts/03_dpo_train.py --config configs/dpo.yaml   # → outputs/dpo LoR
 python scripts/04_eval_zero_shot.py --model outputs/dpo
 python scripts/05_eval_compare.py --base Qwen/Qwen2.5-0.5B-Instruct --sft outputs/sft --dpo outputs/dpo
 python scripts/06_error_analysis.py --from-zero-shot reports/zero_shot_results.json
+# LLM-as-judge（无 key 时用 --demo / mock；真评设 OPENAI_API_KEY 或 LLM_JUDGE_API_KEY）
+python scripts/10_llm_judge.py --demo --from-zero-shot reports/zero_shot_results.json
+python scripts/10_llm_judge.py --mode hybrid --from-comparison reports/comparison.json --pair sft,dpo
 python scripts/07_deploy_vllm.py --config configs/deploy.yaml   # Linux+CUDA 更合适
+
 python scripts/08_bench_serving.py --config configs/deploy.yaml
 python scripts/09_plot_reports.py
 ```

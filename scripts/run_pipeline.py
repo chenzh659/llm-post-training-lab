@@ -267,7 +267,27 @@ def stage_eval(*, demo: bool) -> int:
     ]
     if demo:
         err_argv.append("--demo-errors")
-    return _run_module_main(err_main, err_argv, "error_analysis")
+    rc = _run_module_main(err_main, err_argv, "error_analysis")
+    if rc != 0:
+        return rc
+
+    # Optional LLM / hybrid / mock judge (configs/eval.yaml judge block)
+    from evaluation.llm_judge import main as judge_main
+
+    judge_argv = [
+        "--config",
+        "configs/eval.yaml",
+        "--from-zero-shot",
+        "reports/zero_shot_results.json",
+        "--out",
+        "reports/llm_judge.json",
+        "--max-samples",
+        max_samples,
+    ]
+    if demo:
+        judge_argv.append("--demo")
+    return _run_module_main(judge_main, judge_argv, "llm_judge")
+
 
 
 def stage_deploy(*, demo: bool) -> int:
