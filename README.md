@@ -213,13 +213,18 @@ pip install -r requirements.txt
 # 生成 README 图表至少需要: pip install matplotlib pyyaml
 ```
 
-### 2. 冒烟（无模型下载）
+### 2. 冒烟 + 单元测试（无模型下载）
 
 ```bash
 python scripts/smoke_test.py
 # 或: make smoke
+
+pip install -r requirements-dev.txt
+python -m pytest -q
+# 或: make test
 ```
 
+GitHub Actions 在每个 PR 上自动跑 smoke + pytest（见 [`.github/workflows/ci.yml`](.github/workflows/ci.yml)）。
 ### 3. Demo 全流程（CPU OK）
 
 ```bash

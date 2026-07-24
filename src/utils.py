@@ -43,13 +43,17 @@ def load_yaml(path: str | Path) -> dict[str, Any]:
 
 
 def set_seed(seed: int) -> None:
-    """Seed Python, NumPy, and torch (if available) for reproducibility."""
+    """Seed Python, NumPy, and torch (if available) for reproducibility.
+
+    Import / DLL failures (common on broken Windows torch installs) are ignored
+    so data-only scripts and unit tests still run without a working GPU stack.
+    """
     random.seed(seed)
     try:
         import numpy as np
 
         np.random.seed(seed)
-    except ImportError:
+    except Exception:
         pass
     try:
         import torch
@@ -57,12 +61,16 @@ def set_seed(seed: int) -> None:
         torch.manual_seed(seed)
         if torch.cuda.is_available():
             torch.cuda.manual_seed_all(seed)
-    except ImportError:
+    except Exception:
+        # ImportError, OSError (DLL), or runtime CUDA init failures
         pass
 
 
 def get_device(prefer_cuda: bool = True) -> str:
-    """Return best available device string: ``cuda``, ``mps``, or ``cpu``."""
+    """Return best available device string: ``cuda``, ``mps``, or ``cpu``.
+
+    Falls back to ``cpu`` if torch is missing or fails to load (e.g. broken DLLs).
+    """
     try:
         import torch
 
@@ -70,7 +78,7 @@ def get_device(prefer_cuda: bool = True) -> str:
             return "cuda"
         if getattr(torch.backends, "mps", None) is not None and torch.backends.mps.is_available():
             return "mps"
-    except ImportError:
+    except Exception:
         pass
     return "cpu"
 
